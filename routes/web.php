@@ -1,10 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix'=> 'admin', 'middleware' => ['admin:admin']],  function(){
+    Route::post('/login/admin', [AdminController::class, 'loginAdmin'])->name('admin.login');
 });
 
 Route::get('/dashboard', function () {
@@ -13,7 +19,8 @@ Route::get('/dashboard', function () {
 
 //Admin All route
 Route::middleware('auth')->group(function () {
-    Route::get('/admin/logout', [ProfileController::class, 'adminLogout'])->name('admin.logout');
+    Route::get('/admin/login', [AdminController::class, 'loginForm']);
+    Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 });
 
 Route::middleware('auth')->group(function () {
