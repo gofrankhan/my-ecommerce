@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
     Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 });
+
+//User All route
+Route::get('/', [IndexController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
