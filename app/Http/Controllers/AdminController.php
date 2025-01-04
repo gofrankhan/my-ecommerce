@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\StatefulGuard;
+
 
 class AdminController extends Controller
 {
@@ -28,5 +30,9 @@ class AdminController extends Controller
 
     public function loginForm(){
     	return view('auth.admin_login', ['guard' => 'admin']);
+    }
+
+    public function Dashboard(){
+    	 return view('admin.index');
     }
 }
