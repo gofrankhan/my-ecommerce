@@ -15,4 +15,10 @@ class AdminProfileController extends Controller
         $userData = User::findOrFail($user->id);
         return view('admin.admin_profile_view', compact('userData'));
     }
+
+    public function AdminProfileEdit(){
+        $user = Auth::user();
+        $userData = User::findOrFail($user->id);
+        return view('admin.admin_profile_edit', compact('userData'));
+    }
 }

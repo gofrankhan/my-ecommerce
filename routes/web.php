@@ -18,6 +18,7 @@ Route::get('/welcome', function () {
 //Admin All route
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
+    Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
     Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
     Route::get('/admin/dashboard',[AdminController::class, 'Dashboard'])->name('admin.dashboard');
 });
