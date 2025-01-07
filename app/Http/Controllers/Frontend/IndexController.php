@@ -19,4 +19,9 @@ class IndexController extends Controller
     	$user = User::find($id);
     	return view('frontend.profile.user_profile',compact('user'));
     }
+
+    public function UserLogout(){
+        Auth::logout();
+        return Redirect()->route('login');
+    }
 }
