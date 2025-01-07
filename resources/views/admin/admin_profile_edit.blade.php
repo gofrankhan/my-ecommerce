@@ -1,5 +1,8 @@
 @extends('admin.admin_master')
 @section('admin')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <div class="container-full">
 
     <!-- Main content -->
@@ -15,13 +18,14 @@
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-					<form novalidate="">
+				<form method="post" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data" >
+					@csrf
 					  <div class="row">
 						<div class="col-6">						
 							<div class="form-group">
 								<h5>Admin Full Name <span class="text-danger">*</span></h5>
 								<div class="controls">
-									<input type="text" name="username" class="form-control" required="" value="{{ $userData->name }}" data-validation-required-message="This field is required"> <div class="help-block"></div></div>
+									<input type="text" name="name" class="form-control" required="" value="{{ $userData->name }}" data-validation-required-message="This field is required"> <div class="help-block"></div></div>
 								<div class="form-control-feedback"><small></small></div>
 							</div>
 							<div class="form-group">
@@ -39,11 +43,11 @@
 							<div class="form-group">
 								<h5>Admin Profile Image <span class="text-danger">*</span></h5>
 								<div class="controls">
-									<input type="file" name="profile_photo_path" class="form-control" required=""> <div class="help-block"></div></div>
+									<input type="file" name="profile_photo_path" id="profile_photo" class="form-control" required=""> <div class="help-block"></div></div>
 							</div>
 							
 							<div class="col-md-6">
-								<img class="rounded-circle" src="{{ (!empty($userData->profile_photo_path))? url('upload/admin_images/'.$userData->profile_photo_path): asset('backend/images/user3-128x128.jpg')}}" alt="User Avatar">
+								<img class="rounded-circle" id="profile_photo_preview" src="{{ (!empty($userData->profile_photo_path))? url('upload/admin_images/'.$userData->profile_photo_path): asset('backend/images/user3-128x128.jpg')}}" alt="User Avatar">
 							</div>
 						</div>
                         
@@ -61,4 +65,17 @@
 		</section>
 <!-- /.content -->
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#profile_photo').change(function(e){
+			var reader = new FileReader();
+			reader.onload = function(e){
+			 $('#profile_photo_preview').attr('src',e.target.result);	
+			}
+			reader.readAsDataURL(e.target.files['0']);
+		});
+	});
+</script>
+
 @endsection

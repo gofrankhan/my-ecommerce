@@ -19,6 +19,7 @@ Route::get('/welcome', function () {
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
     Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+    Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
     Route::get('/admin/dashboard',[AdminController::class, 'Dashboard'])->name('admin.dashboard');
 });
