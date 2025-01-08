@@ -20,7 +20,7 @@
   		
 
 
-  		<form method="post" action="" enctype="multipart/form-data">
+  		<form method="post" action="{{ route('user.profile.store') }}" enctype="multipart/form-data">
   			@csrf
 
 

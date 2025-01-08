@@ -45,6 +45,8 @@ Route::get('/admin/login', [AdminController::class, 'loginForm'])->name('admin.l
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/user/profile', [IndexController::class, 'UserProfile'])->name('user.profile');
+    Route::post('/user/profile/store', [IndexController::class, 'UserProfileStore'])->name('user.profile.store');
+    Route::get('/user/dashboard', [IndexController::class, 'UserDashboard'])->name('user.dashboard');
     Route::get('/user/logout', [IndexController::class, 'UserLogout'])->name('user.logout');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
