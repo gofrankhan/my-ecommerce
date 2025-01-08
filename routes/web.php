@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -22,7 +23,7 @@ Route::get('/dashboard', function () {
 // });
 
 //Admin All route
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
     Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
     Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
     Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');
