@@ -31,13 +31,14 @@
 							<p class="text-white-50">Sign in to start your session</p>							
 						</div>
 						<div class="p-30 rounded30 box-shadowed b-2 b-dashed">
-							<form action="index.html" method="post">
+							<form method="POST" action="{{ route('login') }}">
+								@csrf
 								<div class="form-group">
 									<div class="input-group mb-3">
 										<div class="input-group-prepend">
 											<span class="input-group-text bg-transparent text-white"><i class="ti-user"></i></span>
 										</div>
-										<input type="text" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Username">
+										<input type="email" name="email" id="email" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Email">
 									</div>
 								</div>
 								<div class="form-group">
@@ -45,7 +46,12 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text  bg-transparent text-white"><i class="ti-lock"></i></span>
 										</div>
-										<input type="password" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Password">
+										<input type="password" name="password" id="password" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Password">
+										@error('email') 
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
 									</div>
 								</div>
 								  <div class="row">
@@ -80,7 +86,7 @@
 							</div>
 							
 							<div class="text-center">
-								<p class="mt-15 mb-0 text-white">Don't have an account? <a href="auth_register.html" class="btn btn-info btn-rounded ml-5">Sign Up</a></p>
+								<p class="mt-15 mb-0 text-white">Create an admin account? <a href="{{ route('admin.register')}}" class="btn btn-info btn-rounded ml-5">Register</a></p>
 							</div>
 						</div>
 					</div>

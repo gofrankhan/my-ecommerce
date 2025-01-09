@@ -20,7 +20,7 @@
 				<!-- Sign-in -->			
                 <div class="col-md-6 col-sm-6 sign-in">
                     <h4 class="">Sign in</h4>
-                    <p class="">Don't have account? <a href="{{ route('register') }}">Sign Up</a></p> 
+                    <p class="">Don't have an account? <a href="{{ route('register') }}">Sign Up</a></p> 
                     <div class="social-sign-in outer-top-xs">
                         <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
                         <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>

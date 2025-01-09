@@ -31,6 +31,8 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     Route::post('/admin/update/password', [AdminProfileController::class, 'AdminUpdatePassword'])->name('admin.update.password');
     Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
     Route::get('/admin/dashboard',[AdminController::class, 'Dashboard'])->name('admin.dashboard');
+    Route::get('/admin/register',[AdminController::class, 'AdminRegister'])->name('admin.register');
+    Route::post('new/admin/store',[AdminController::class, 'NewAdminStore'])->name('new.admin.store');
 });
 
 // Route::middleware(['web', 'verified'])->get('/dashboard', function () {
