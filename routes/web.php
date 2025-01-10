@@ -4,23 +4,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\RoleMiddleware;
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');;
-
-// Route::group(['prefix'=> 'admin', 'middleware' => ['admin:admin']],  function(){
-//     Route::post('/login/admin', [AdminController::class, 'loginAdmin'])->name('admin.login');
-// });
 
 //Admin All route
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
@@ -34,12 +23,6 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     Route::get('/admin/register',[AdminController::class, 'AdminRegister'])->name('admin.register');
     Route::post('new/admin/store',[AdminController::class, 'NewAdminStore'])->name('new.admin.store');
 });
-
-// Route::middleware(['web', 'verified'])->get('/dashboard', function () {
-// 	$id = Auth::user()->id;
-//     $user = User::find($id);
-//     return view('dashboard',compact('user'));
-// })->name('dashboard');
 
 //User All route
 Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -58,4 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//All Brand Route
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('brand')->group(function(){
+        Route::get('/view', [BrandController::class, 'BrandView'])->name('all.brands');
+    });
+});
 require __DIR__.'/auth.php';

@@ -37,6 +37,18 @@
             <li><a href="calendar.html"><i class="ti-more"></i>Calendar</a></li>
           </ul>
         </li> 
+
+        <li class="treeview">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Brands</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('all.brands')}}"><i class="ti-more"></i>All Brands</a></li>
+          </ul>
+        </li>
 		  
         <li class="treeview">
           <a href="#">
