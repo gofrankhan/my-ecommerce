@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
     Route::prefix('brand')->group(function(){
         Route::get('/view', [BrandController::class, 'BrandView'])->name('all.brands');
+        Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
     });
 });
 require __DIR__.'/auth.php';
