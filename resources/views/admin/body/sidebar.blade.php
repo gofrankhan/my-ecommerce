@@ -54,6 +54,18 @@
             <li><a href="{{ route('all.brands')}}"><i class="ti-more"></i>All Brands</a></li>
           </ul>
         </li>
+
+        <li class="treeview {{ ($prefix == '/category')?'active':'' }}  ">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Category </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <li class="{{ ($route == 'all.category')? 'active':'' }}"><a href="{{ route('all.category') }}"><i class="ti-more"></i>All Category</a></li>
+          </ul>
+        </li>
 		  
         <li class="treeview">
           <a href="#">
