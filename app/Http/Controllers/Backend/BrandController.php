@@ -25,6 +25,7 @@ class BrandController extends Controller
 
     	$image = $request->file('brand_image');
     	$name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+		$image = $request->file('brand_image')->move('upload/brand/', $name_gen);
     	$save_url = 'upload/brand/'.$name_gen;
 
 	Brand::insert([
@@ -43,4 +44,27 @@ class BrandController extends Controller
 
 		return redirect()->back()->with($notification);
     }
+
+	public function BrandEdit($id){
+    	$brand = Brand::findOrFail($id);
+    	return view('backend.brand.brand_edit',compact('brand'));
+
+    }
+
+	public function BrandDelete($id){
+
+    	$brand = Brand::findOrFail($id);
+    	$img = $brand->brand_image;
+    	unlink($img);
+
+    	Brand::findOrFail($id)->delete();
+
+    	 $notification = array(
+			'message' => 'Brand Deleted Successfully',
+			'alert-type' => 'info'
+		);
+
+		return redirect()->back()->with($notification);
+
+    } // end method 
 }

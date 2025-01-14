@@ -46,8 +46,8 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     Route::prefix('brand')->group(function(){
         Route::get('/view', [BrandController::class, 'BrandView'])->name('all.brands');
         Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
-        Route::get('/edit', [BrandController::class, 'BrandEdit'])->name('brand.edit');
-        Route::post('/delete', [BrandController::class, 'BrandDelete'])->name('brand.delete');
+        Route::get('/edit/{id}', [BrandController::class, 'BrandEdit'])->name('brand.edit');
+        Route::get('/delete/{id}', [BrandController::class, 'BrandDelete'])->name('brand.delete');
     });
 });
 require __DIR__.'/auth.php';
