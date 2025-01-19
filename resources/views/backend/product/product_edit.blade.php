@@ -132,10 +132,10 @@
 			<div class="col-md-4">
 
 				 <div class="form-group">
-			<h5>Product Name Hin <span class="text-danger">*</span></h5>
+			<h5>Product Name Bn <span class="text-danger">*</span></h5>
 			<div class="controls">
-				<input type="text" name="product_name_hin" class="form-control" required=""  value="{{ $products->product_name_hin }}">
-     @error('product_name_hin') 
+				<input type="text" name="product_name_bn" class="form-control" required=""  value="{{ $products->product_name_bn }}">
+     @error('product_name_bn') 
 	 <span class="text-danger">{{ $message }}</span>
 	 @enderror
 	 		 </div>
@@ -202,10 +202,10 @@
 			<div class="col-md-4">
 
 	    <div class="form-group">
-			<h5>Product Tags Hin <span class="text-danger">*</span></h5>
+			<h5>Product Tags Bn <span class="text-danger">*</span></h5>
 			<div class="controls">
-	 <input type="text" name="product_tags_hin" class="form-control" value="{{ $products->product_tags_hin }}" data-role="tagsinput" required="">
-     @error('product_tags_hin') 
+	 <input type="text" name="product_tags_bn" class="form-control" value="{{ $products->product_tags_bn }}" data-role="tagsinput" required="">
+     @error('product_tags_bn') 
 	 <span class="text-danger">{{ $message }}</span>
 	 @enderror
 	 		 </div>
@@ -231,10 +231,10 @@
 			<div class="col-md-4">
 
 				 <div class="form-group">
-			<h5>Product Size Hin <span class="text-danger">*</span></h5>
+			<h5>Product Size Bn <span class="text-danger">*</span></h5>
 			<div class="controls">
-	 <input type="text" name="product_size_hin" class="form-control" value="{{ $products->product_size_hin }}" data-role="tagsinput"  >
-     @error('product_size_hin') 
+	 <input type="text" name="product_size_bn" class="form-control" value="{{ $products->product_size_bn }}" data-role="tagsinput"  >
+     @error('product_size_bn') 
 	 <span class="text-danger">{{ $message }}</span>
 	 @enderror
 	 		 </div>
@@ -264,10 +264,10 @@
 			<div class="col-md-6">
 
 				 <div class="form-group">
-			<h5>Product Color Hin <span class="text-danger">*</span></h5>
+			<h5>Product Color Bn <span class="text-danger">*</span></h5>
 			<div class="controls">
-	 <input type="text" name="product_color_hin" class="form-control" value="{{ $products->product_color_hin }}" data-role="tagsinput" required="">
-     @error('product_color_hin') 
+	 <input type="text" name="product_color_bn" class="form-control" value="{{ $products->product_color_bn }}" data-role="tagsinput" required="">
+     @error('product_color_bn') 
 	 <span class="text-danger">{{ $message }}</span>
 	 @enderror
 	 		 </div>
@@ -339,10 +339,10 @@
 			<div class="col-md-6">
 
 	     <div class="form-group">
-			<h5>Short Description Hindi <span class="text-danger">*</span></h5>
+			<h5>Short Description Bangla <span class="text-danger">*</span></h5>
 			<div class="controls">
-	<textarea name="short_descp_hin" id="textarea" class="form-control" required placeholder="Textarea text">
-		{!! $products->short_descp_hin !!}
+	<textarea name="short_descp_bn" id="textarea" class="form-control" required placeholder="Textarea text">
+		{!! $products->short_descp_bn !!}
 	</textarea>     
 	 		 </div>
 		</div>
@@ -373,10 +373,10 @@
 			<div class="col-md-6">
 
 	     <div class="form-group">
-			<h5>Long Description Hindi <span class="text-danger">*</span></h5>
+			<h5>Long Description Bangla <span class="text-danger">*</span></h5>
 			<div class="controls">
-	<textarea id="editor2" name="long_descp_hin" rows="10" cols="80">
-		{!! $products->long_descp_hin !!}
+	<textarea id="editor2" name="long_descp_bn" rows="10" cols="80">
+		{!! $products->long_descp_bn !!}
 						</textarea>       
 	 		 </div>
 		</div>
