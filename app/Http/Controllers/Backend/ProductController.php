@@ -130,6 +130,55 @@ class ProductController extends Controller
   
     }
 
+    public function ProductDataUpdate(Request $request){
+
+      $product_id = $request->id;
+  
+           Product::findOrFail($product_id)->update([
+          'brand_id' => $request->brand_id,
+          'category_id' => $request->category_id,
+          'subcategory_id' => $request->subcategory_id,
+          'subsubcategory_id' => $request->subsubcategory_id,
+          'product_name_en' => $request->product_name_en,
+          'product_name_bn' => $request->product_name_bn,
+          'product_slug_en' =>  strtolower(str_replace(' ', '-', $request->product_name_en)),
+          'product_slug_bn' => str_replace(' ', '-', $request->product_name_bn),
+          'product_code' => $request->product_code,
+  
+          'product_qty' => $request->product_qty,
+          'product_tags_en' => $request->product_tags_en,
+          'product_tags_bn' => $request->product_tags_bn,
+          'product_size_en' => $request->product_size_en,
+          'product_size_bn' => $request->product_size_bn,
+          'product_color_en' => $request->product_color_en,
+          'product_color_bn' => $request->product_color_bn,
+  
+          'selling_price' => $request->selling_price,
+          'discount_price' => $request->discount_price,
+          'short_descp_en' => $request->short_descp_en,
+          'short_descp_bn' => $request->short_descp_bn,
+          'long_descp_en' => $request->long_descp_en,
+          'long_descp_bn' => $request->long_descp_bn,
+  
+          'hot_deals' => $request->hot_deals,
+          'featured' => $request->featured,
+          'special_offer' => $request->special_offer,
+          'special_deals' => $request->special_deals,      	 
+          'status' => 1,
+          'created_at' => Carbon::now(),   
+  
+        ]);
+  
+            $notification = array(
+        'message' => 'Product Updated Without Image Successfully',
+        'alert-type' => 'success'
+      );
+  
+      return redirect()->route('manage-product')->with($notification);
+  
+  
+    } // end method 
+
     public function ManageProduct(){
       $products = Product::latest()->get();
       return view('backend.product.product_view',compact('products'));
@@ -155,6 +204,36 @@ class ProductController extends Controller
       return redirect()->back()->with($notification);
         
      }
+
+    /// Multiple Image Update
+	public function MultiImageUpdate(Request $request){
+		$imgs = $request->multi_img;
+
+		foreach ($imgs as $id => $img) {
+	    $imgDel = MultiImg::findOrFail($id);
+	    unlink($imgDel->photo_name);
+	     
+    	$make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+    	//Image::make($img)->resize(917,1000)->save('upload/products/multi-image/'.$make_name);
+    	$uploadPath = 'upload/products/multi-image/'.$make_name;
+      $destinationPath = 'upload/products/multi-image';
+      $img->move($destinationPath, $make_name);
+
+    	MultiImg::where('id',$id)->update([
+    		'photo_name' => $uploadPath,
+    		'updated_at' => Carbon::now(),
+    	  ]);
+
+	    } // end foreach
+
+       $notification = array(
+        'message' => 'Product Image Updated Successfully',
+        'alert-type' => 'info'
+      );
+
+      return redirect()->back()->with($notification);
+
+    } // end mehtod 
 
     /// Product Main Thambnail Update /// 
     public function ThambnailImageUpdate(Request $request){
@@ -218,4 +297,12 @@ class ProductController extends Controller
       return redirect()->back()->with($notification);
 
     }// end method 
+
+      // product Stock 
+    public function ProductStock(){
+
+      $products = Product::latest()->get();
+      return view('backend.product.product_stock',compact('products'));
+      
+    }
 }

@@ -85,6 +85,7 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::get('/add', [ProductController::class, 'AddProduct'])->name('add-product');
         Route::post('/store', [ProductController::class, 'StoreProduct'])->name('product-store');
         Route::get('/manage', [ProductController::class, 'ManageProduct'])->name('manage-product');
+        Route::get('/stock', [ProductController::class, 'ProductStock'])->name('product.stock');
         Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
         Route::post('/data/update', [ProductController::class, 'ProductDataUpdate'])->name('product-update');
         Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
