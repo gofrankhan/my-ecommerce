@@ -152,4 +152,67 @@ class ProductController extends Controller
       return redirect()->back()->with($notification);
         
      }
+
+    /// Product Main Thambnail Update /// 
+    public function ThambnailImageUpdate(Request $request){
+      $pro_id = $request->id;
+      $oldImage = $request->old_img;
+      unlink($oldImage);
+
+      $image = $request->file('product_thambnail');
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        //Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
+        $save_url = 'upload/products/thambnail/'.$name_gen;
+        $destinationPath = 'upload/products/thambnail';
+        $image->move($destinationPath, $name_gen);
+
+        Product::findOrFail($pro_id)->update([
+          'product_thambnail' => $save_url,
+          'updated_at' => Carbon::now(),
+
+        ]);
+
+            $notification = array(
+        'message' => 'Product Image Thambnail Updated Successfully',
+        'alert-type' => 'info'
+      );
+
+      return redirect()->back()->with($notification);
+
+    } // end method
+
+     //// Multi Image Delete ////
+    public function MultiImageDelete($id){
+      $oldimg = MultiImg::findOrFail($id);
+      unlink($oldimg->photo_name);
+      MultiImg::findOrFail($id)->delete();
+
+      $notification = array(
+        'message' => 'Product Image Deleted Successfully',
+        'alert-type' => 'success'
+      );
+
+      return redirect()->back()->with($notification);
+
+    } // end method 
+
+    public function ProductDelete($id){
+      $product = Product::findOrFail($id);
+      unlink($product->product_thambnail);
+      Product::findOrFail($id)->delete();
+
+      $images = MultiImg::where('product_id',$id)->get();
+      foreach ($images as $img) {
+        unlink($img->photo_name);
+        MultiImg::where('product_id',$id)->delete();
+      }
+
+      $notification = array(
+      'message' => 'Product Deleted Successfully',
+      'alert-type' => 'success'
+      );
+
+      return redirect()->back()->with($notification);
+
+    }// end method 
 }
