@@ -13,6 +13,8 @@ use App\Models\Product;
 use App\Models\MultiImg;
 use Carbon\Carbon;
 
+use function Illuminate\Log\log;
+
 class ProductController extends Controller
 {
     //
@@ -27,20 +29,21 @@ class ProductController extends Controller
       $request->validate([
         'file' => 'required|mimes:jpeg,png,jpg,zip,pdf|max:2048',
       ]);
-  
+      log("step 1");
       if ($files = $request->file('file')) {
+        log("step 2");
         $destinationPath = 'upload/pdf'; // upload path
         $digitalItem = date('YmdHis') . "." . $files->getClientOriginalExtension();
         $files->move($destinationPath,$digitalItem);
       }
-
+      log("step 3");
       $image = $request->file('product_thambnail');
       $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
       //Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
       $save_url = 'upload/products/thambnail/'.$name_gen;
       $destinationPath = 'upload/products/thambnail';
       $image->move($destinationPath, $name_gen);
-    
+      log("step 4");
       $product_id = Product::insertGetId([
         'brand_id' => $request->brand_id,
         'category_id' => $request->category_id,
@@ -80,7 +83,7 @@ class ProductController extends Controller
 
       ]);
     
-    
+      log("step 5");
       ////////// Multiple Image Upload Start ///////////
 
       $images = $request->file('multi_img');
@@ -90,7 +93,7 @@ class ProductController extends Controller
         $uploadPath = 'upload/products/multi-image/'.$make_name;
         $destinationPath = 'upload/products/multi-image';
         $img->move($destinationPath, $make_name);
-
+        log("step 6");
         MultiImg::insert([
 
             'product_id' => $product_id,
@@ -103,12 +106,12 @@ class ProductController extends Controller
 
       ////////// Een Multiple Image Upload Start ///////////
     
-
+      log("step 7");
       $notification = array(
           'message' => 'Product Inserted Successfully',
           'alert-type' => 'success'
       );
-
+      dd($request);
       return redirect()->route('manage-product')->with($notification);
 
 
