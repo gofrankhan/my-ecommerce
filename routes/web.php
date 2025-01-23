@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\LanguageController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -110,5 +111,10 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
     });
 });
-        
+
+//// Frontend All Routes /////
+/// Multi Language All Routes ////
+Route::get('/language/bangla', [LanguageController::class, 'Bangla'])->name('bangla.language');
+Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
+            
 require __DIR__.'/auth.php';
