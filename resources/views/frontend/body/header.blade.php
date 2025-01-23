@@ -6,15 +6,15 @@
       <div class="header-top-inner">
         <div class="cnt-account">
           <ul class="list-unstyled">
-            <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-            <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-            <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-            <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+            <li><a href="#"><i class="icon fa fa-user"></i>@if(session()->get('language') == 'bangla')অ্যাকাউন্ট @else My Account  @endif</a></li>
+            <li><a href="#"><i class="icon fa fa-heart"></i>@if(session()->get('language') == 'bangla') পছন্দের তালিকা @else Wishlist  @endif</a></li>
+            <li><a href="#"><i class="icon fa fa-shopping-cart"></i>@if(session()->get('language') == 'bangla') আমার কার্ট @else My Cart  @endif</a></li>
+            <li><a href="#"><i class="icon fa fa-check"></i>@if(session()->get('language') == 'bangla') চেকআউট @else Checkout  @endif</a></li>
             @auth 
-                <li><a href="{{ route('user.profile') }}"><i class="icon fa fa-user"></i>User Profile</a></li>
-                <li><a href="{{ route('user.logout') }}"><i class="icon fa fa-sign-out"></i>Logout</a></li>
+                <li><a href="{{ route('user.profile') }}"><i class="icon fa fa-user"></i>@if(session()->get('language') == 'bangla') প্রোফাইল @else User Profile  @endif</a></li>
+                <li><a href="{{ route('user.logout') }}"><i class="icon fa fa-sign-out"></i>@if(session()->get('language') == 'bangla') লগআউট @else Logout  @endif</a></li>
             @else 
-                <li><a href="{{ route('login')}} "><i class="icon fa fa-lock"></i>Login/Register</a></li>
+                <li><a href="{{ route('login')}} "><i class="icon fa fa-lock"></i>@if(session()->get('language') == 'bangla') লগইন/নিবন্ধন @else Login/Register  @endif</a></li>
             @endauth
             
           </ul>
@@ -30,7 +30,7 @@
                 <li><a href="#">GBP</a></li>
               </ul>
             </li>
-            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">Language </span><b class="caret"></b></a>
+            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">@if(session()->get('language') == 'bangla') ভাষা @else Language  @endif </span><b class="caret"></b></a>
               <ul class="dropdown-menu">
               @if(session()->get('language') == 'bangla')
                 <li><a href="{{ route('english.language') }}">English</a></li>
@@ -162,40 +162,39 @@
                         <li>
                           <div class="yamm-content ">
                             <div class="row">
-                              <!--   // Get SubCategory Table Data -->
-                              @php
-                              $subcategories = App\Models\SubCategory::where('category_id',$category->id)->orderBy('subcategory_name_en','ASC')->get();
-                              @endphp
-                              @foreach($subcategories as $subcategory)
-                              <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                <a href="{{ url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en ) }}">
-                                  <h2 class="title">@if(session()->get('language') == 'bangla') {{$subcategory->subcategory_name_bn}} @else {{$subcategory->subcategory_name_en}} @endif</h2> 
-                                </a>
+                                <!--   // Get SubCategory Table Data -->
+                                @php
+                                $subcategories = App\Models\SubCategory::where('category_id',$category->id)->orderBy('subcategory_name_en','ASC')->get();
+                                @endphp
+                                @foreach($subcategories as $subcategory)
+                                <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                                  <a href="{{ url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en ) }}">
+                                    <h2 class="title">@if(session()->get('language') == 'bangla') {{$subcategory->subcategory_name_bn}} @else {{$subcategory->subcategory_name_en}} @endif</h2> 
+                                  </a>
 
 
-                              <!--   // Get SubSubCategory Table Data -->
-                              @php
-                              $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcategory->id)->orderBy('subsubcategory_name_en','ASC')->get();
-                              @endphp          
+                                <!--   // Get SubSubCategory Table Data -->
+                                @php
+                                $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcategory->id)->orderBy('subsubcategory_name_en','ASC')->get();
+                                @endphp          
 
-                              @foreach($subsubcategories as $subsubcategory)
-                              <ul class="links">
-                              <li><a href="{{ url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_slug_en ) }}">
-                              @if(session()->get('language') == 'bangla') {{ $subsubcategory->subsubcategory_name_bn }} @else {{ $subsubcategory->subsubcategory_name_en }} @endif
-                              </a></li>                                           
-                              </ul>
-                              @endforeach <!-- // End SubSubCategory Foreach -->
-
+                                @foreach($subsubcategories as $subsubcategory)
+                                <ul class="links">
+                                <li><a href="{{ url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_slug_en ) }}">
+                                @if(session()->get('language') == 'bangla') {{ $subsubcategory->subsubcategory_name_bn }} @else {{ $subsubcategory->subsubcategory_name_en }} @endif
+                                </a></li>                                           
+                                </ul>
+                                @endforeach <!-- // End SubSubCategory Foreach -->
+                              </div>
+                              <!-- /.col -->
+                              @endforeach <!-- // End SubCategory Foreach -->
+                              <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}" alt=""> </div>
+                              <!-- /.yamm-content --> 
                             </div>
-                            <!-- /.col -->
-                            @endforeach <!-- // End SubCategory Foreach -->
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}" alt=""> </div>
-                            <!-- /.yamm-content --> 
                           </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
+                        </li>
+                      </ul>
+                    </li>
                   @endforeach <!-- // End Category Foreach -->
                 </li>
                 <li class="dropdown"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages</a>
