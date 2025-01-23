@@ -339,7 +339,7 @@
     <script src="{{asset('backend/js/vendors.min.js')}}"></script>
 	<script src="{{asset('backend/js/template.js')}}"></script>
 	<script src="{{asset('backend/js/pages/dashboard.js')}}"></script>
-
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 	<script>
