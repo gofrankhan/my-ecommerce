@@ -3,7 +3,7 @@
 $hot_deals = App\Models\Product::where('hot_deals',1)->where('discount_price','!=',NULL)->orderBy('id','DESC')->limit(3)->get();
      @endphp
 
-     <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+     <div class="sidebar-widget hot-deals wow fadeInUp outer-top-vs">
           <h3 class="section-title">hot deals</h3>
           <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
 
