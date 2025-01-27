@@ -957,7 +957,8 @@
             <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
               <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">All</a></li>
               @foreach($categories as $category)
-              <li><a data-transition-type="backSlide" href="#category{{ $category->id }}" data-toggle="tab">{{ $category->category_name_en }}</a></li>
+              <li><a data-transition-type="backSlide" href="#category{{ $category->id }}" data-toggle="tab">
+              @if(session()->get('language') == 'bangla'){{ $category->category_name_bn }} @else {{ $category->category_name_en }} @endif</a></li>
               @endforeach
             </ul>
             <!-- /.nav-tabs --> 

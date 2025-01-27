@@ -116,5 +116,7 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 /// Multi Language All Routes ///
 Route::get('/language/bangla', [LanguageController::class, 'Bangla'])->name('bangla.language');
 Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
+
+Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
             
 require __DIR__.'/auth.php';
