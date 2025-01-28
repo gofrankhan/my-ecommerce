@@ -10,30 +10,21 @@
 <div class="sidebar-widget hot-deals wow fadeInUp outer-top-vs">
     <h3 class="section-title">hot deals</h3>
     <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
-
-
-
         @foreach ($hot_deals as $product)
             <div class="item">
                 <div class="products">
                     <div class="hot-deal-wrapper">
                         <div class="image"> <img src="{{ asset($product->product_thambnail) }}" alt=""> </div>
-
                         @php
                             $amount = $product->selling_price - $product->discount_price;
                             $discount = ($amount / $product->selling_price) * 100;
                         @endphp
-
                         @if ($product->discount_price == null)
                             <div class="tag new"><span>new</span></div>
                         @else
                             <div class="sale-offer-tag"><span>{{ round($discount) }}%<br>
                                     off</span></div>
                         @endif
-
-
-
-
                         <div class="timing-wrapper">
                             <div class="box-wrapper">
                                 <div class="date box"> <span class="key">120</span> <span class="value">DAYS</span>
