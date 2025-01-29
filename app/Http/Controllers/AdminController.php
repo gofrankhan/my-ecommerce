@@ -17,15 +17,18 @@ use App\Models\User;
 class AdminController extends Controller
 {
 
-    public function loginForm(){
-    	return view('auth.admin_login');
+    public function loginForm()
+    {
+        return view('auth.admin_login');
     }
 
-    public function Dashboard(){
-    	 return view('admin.index');
+    public function Dashboard()
+    {
+        return view('admin.index');
     }
 
-    public function AdminRegister(){
+    public function AdminRegister()
+    {
         return view('auth.admin_register');
     }
 
@@ -33,7 +36,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'phone' => 'required|numeric|digits:11',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);

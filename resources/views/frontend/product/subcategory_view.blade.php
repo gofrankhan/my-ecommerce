@@ -4,8 +4,7 @@
     Subcategory Product
 @endsection
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 
@@ -57,8 +56,8 @@
                                         <div class="accordion-group">
                                             <div class="accordion-heading"> <a href="#collapse{{ $category->id }}"
                                                     data-toggle="collapse" class="accordion-toggle collapsed">
-                                                    @if (session()->get('language') == 'hindi')
-                                                        {{ $category->category_name_hin }}
+                                                    @if (session()->get('language') == 'bangla')
+                                                        {{ $category->category_name_bn }}
                                                     @else
                                                         {{ $category->category_name_en }}
                                                     @endif
@@ -81,8 +80,8 @@
                                                         <ul>
                                                             <li><a
                                                                     href="{{ url('subcategory/product/' . $subcategory->id . '/' . $subcategory->subcategory_slug_en) }}">
-                                                                    @if (session()->get('language') == 'hindi')
-                                                                        {{ $subcategory->subcategory_name_hin }}
+                                                                    @if (session()->get('language') == 'bangla')
+                                                                        {{ $subcategory->subcategory_name_bn }}
                                                                     @else
                                                                         {{ $subcategory->subcategory_name_en }}
                                                                     @endif

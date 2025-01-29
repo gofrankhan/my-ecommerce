@@ -60,8 +60,8 @@
                                         <div class="accordion-group">
                                             <div class="accordion-heading"> <a href="#collapse{{ $category->id }}"
                                                     data-toggle="collapse" class="accordion-toggle collapsed">
-                                                    @if (session()->get('language') == 'hindi')
-                                                        {{ $category->category_name_hin }}
+                                                    @if (session()->get('language') == 'bangla')
+                                                        {{ $category->category_name_bn }}
                                                     @else
                                                         {{ $category->category_name_en }}
                                                     @endif
@@ -84,8 +84,8 @@
                                                         <ul>
                                                             <li><a
                                                                     href="{{ url('subcategory/product/' . $subcategory->id . '/' . $subcategory->subcategory_slug_en) }}">
-                                                                    @if (session()->get('language') == 'hindi')
-                                                                        {{ $subcategory->subcategory_name_hin }}
+                                                                    @if (session()->get('language') == 'bangla')
+                                                                        {{ $subcategory->subcategory_name_bn }}
                                                                     @else
                                                                         {{ $subcategory->subcategory_name_en }}
                                                                     @endif
@@ -367,7 +367,8 @@
                                                                 <div class="tag new"><span>new</span></div>
                                                             @else
                                                                 <div class="tag hot">
-                                                                    <span>{{ round($discount) }}%</span></div>
+                                                                    <span>{{ round($discount) }}%</span>
+                                                                </div>
                                                             @endif
                                                         </div>
 
@@ -378,8 +379,8 @@
                                                     <div class="product-info text-left">
                                                         <h3 class="name"><a
                                                                 href="{{ url('product/details/' . $product->id . '/' . $product->product_slug_en) }}">
-                                                                @if (session()->get('language') == 'hindi')
-                                                                    {{ $product->product_name_hin }}
+                                                                @if (session()->get('language') == 'bangla')
+                                                                    {{ $product->product_name_bn }}
                                                                 @else
                                                                     {{ $product->product_name_en }}
                                                                 @endif
@@ -486,8 +487,8 @@
                                                         <div class="product-info">
                                                             <h3 class="name"><a
                                                                     href="{{ url('product/details/' . $product->id . '/' . $product->product_slug_en) }}">
-                                                                    @if (session()->get('language') == 'hindi')
-                                                                        {{ $product->product_name_hin }}
+                                                                    @if (session()->get('language') == 'bangla')
+                                                                        {{ $product->product_name_bn }}
                                                                     @else
                                                                         {{ $product->product_name_en }}
                                                                     @endif
@@ -508,8 +509,8 @@
 
                                                             <!-- /.product-price -->
                                                             <div class="description m-t-10">
-                                                                @if (session()->get('language') == 'hindi')
-                                                                    {{ $product->short_descp_hin }}
+                                                                @if (session()->get('language') == 'bangla')
+                                                                    {{ $product->short_descp_bn }}
                                                                 @else
                                                                     {{ $product->short_descp_en }}
                                                                 @endif

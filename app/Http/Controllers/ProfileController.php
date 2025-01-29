@@ -58,7 +58,7 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-       /**
+    /**
      * Delete the user's account.
      */
     public function adminLogout(Request $request): RedirectResponse

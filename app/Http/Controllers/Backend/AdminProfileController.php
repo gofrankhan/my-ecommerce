@@ -10,20 +10,23 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminProfileController extends Controller
 {
-    //
-    public function AdminProfile(){
-        $user = Auth::user();
-        $userData = User::findOrFail($user->id);
-        return view('admin.admin_profile_view', compact('userData'));
-    }
+	//
+	public function AdminProfile()
+	{
+		$user = Auth::user();
+		$userData = User::findOrFail($user->id);
+		return view('admin.admin_profile_view', compact('userData'));
+	}
 
-    public function AdminProfileEdit(){
-        $user = Auth::user();
-        $userData = User::findOrFail($user->id);
-        return view('admin.admin_profile_edit', compact('userData'));
-    }
+	public function AdminProfileEdit()
+	{
+		$user = Auth::user();
+		$userData = User::findOrFail($user->id);
+		return view('admin.admin_profile_edit', compact('userData'));
+	}
 
-    public function AdminProfileStore(Request $request){
+	public function AdminProfileStore(Request $request)
+	{
 
 		$id = Auth::user()->id;
 		$data = User::find($id);
@@ -33,9 +36,9 @@ class AdminProfileController extends Controller
 
 		if ($request->file('profile_photo_path')) {
 			$file = $request->file('profile_photo_path');
-			@unlink(public_path('upload/admin_images/'.$data->profile_photo_path));
-			$filename = date('YmdHi').$file->getClientOriginalName();
-			$file->move(public_path('upload/admin_images'),$filename);
+			@unlink(public_path('upload/admin_images/' . $data->profile_photo_path));
+			$filename = date('YmdHi') . $file->getClientOriginalName();
+			$file->move(public_path('upload/admin_images'), $filename);
 			$data['profile_photo_path'] = $filename;
 		}
 		$data->save();
@@ -46,31 +49,31 @@ class AdminProfileController extends Controller
 		);
 
 		return redirect()->route('admin.profile')->with($notification);
-
 	} // end method 
 
-    public function AdminChangePassword(){
-        
-        return view('admin.admin_change_password');
-    }
+	public function AdminChangePassword()
+	{
 
-    public function AdminUpdatePassword(Request $request){
+		return view('admin.admin_change_password');
+	}
 
-        $validateData = $request->validate([
+	public function AdminUpdatePassword(Request $request)
+	{
+
+		$validateData = $request->validate([
 			'oldpassword' => 'required',
 			'password' => 'required|confirmed',
 		]);
 
 		$hashedPassword = Auth::user()->password;
-		if (Hash::check($request->oldpassword,$hashedPassword)) {
+		if (Hash::check($request->oldpassword, $hashedPassword)) {
 			$admin = User::find(Auth::id());
 			$admin->password = Hash::make($request->password);
 			$admin->save();
 			Auth::logout();
 			return redirect()->route('admin.logout');
-		}else{
+		} else {
 			return redirect()->back();
 		}
-
-    }
+	}
 }
