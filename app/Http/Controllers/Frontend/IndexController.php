@@ -29,18 +29,31 @@ class IndexController extends Controller
 		$special_deals = Product::where('special_deals', 1)->orderBy('id', 'DESC')->limit(3)->get();
 
 		$skip_category_0 = Category::skip(0)->first();
-    	$skip_product_0 = Product::where('status',1)->where('category_id',$skip_category_0->id)->orderBy('id','DESC')->get();
+		$skip_product_0 = Product::where('status', 1)->where('category_id', $skip_category_0->id)->orderBy('id', 'DESC')->get();
 
-    	$skip_category_1 = Category::skip(1)->first();
-    	$skip_product_1 = Product::where('status',1)->where('category_id',$skip_category_1->id)->orderBy('id','DESC')->get();
+		$skip_category_1 = Category::skip(1)->first();
+		$skip_product_1 = Product::where('status', 1)->where('category_id', $skip_category_1->id)->orderBy('id', 'DESC')->get();
 
-    	$skip_brand_1 = Brand::skip(1)->first();
-    	$skip_brand_product_1 = Product::where('status',1)->where('brand_id',$skip_brand_1->id)->orderBy('id','DESC')->get();
+		$skip_brand_1 = Brand::skip(1)->first();
+		$skip_brand_product_1 = Product::where('status', 1)->where('brand_id', $skip_brand_1->id)->orderBy('id', 'DESC')->get();
 		//return $categories;
 		//die();
 
-		return view('frontend.index', compact('categories', 'sliders', 'products', 'featured', 'hot_deals', 'special_offer', 'special_deals', 
-					'skip_category_0','skip_product_0','skip_category_1','skip_product_1','skip_brand_1','skip_brand_product_1'));
+		return view('frontend.index', compact(
+			'categories',
+			'sliders',
+			'products',
+			'featured',
+			'hot_deals',
+			'special_offer',
+			'special_deals',
+			'skip_category_0',
+			'skip_product_0',
+			'skip_category_1',
+			'skip_product_1',
+			'skip_brand_1',
+			'skip_brand_product_1'
+		));
 	}
 
 	public function UserProfile()
@@ -136,5 +149,14 @@ class IndexController extends Controller
 		$cat_id = $product->category_id;
 		$relatedProduct = Product::where('category_id', $cat_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->get();
 		return view('frontend.product.product_details', compact('product', 'multiImag', 'product_color_en', 'product_color_bn', 'product_size_en', 'product_size_bn', 'relatedProduct'));
+	}
+
+	public function TagWiseProduct($tag)
+	{
+		$products = Product::where('status', 1)->where('product_tags_en',  'LIKE', "%$tag%")->where('product_tags_bn', 'LIKE', "%$tag%")->orderBy('id', 'DESC')->paginate(3);
+		$categories = Category::orderBy('category_name_en', 'ASC')->get();
+		return $products;
+		die();
+		return view('frontend.tags.tags_view', compact('products', 'categories'));
 	}
 }

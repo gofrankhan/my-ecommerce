@@ -24,9 +24,9 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/admin/update/password', [AdminProfileController::class, 'AdminUpdatePassword'])->name('admin.update.password');
     Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
-    Route::get('/admin/dashboard',[AdminController::class, 'Dashboard'])->name('admin.dashboard');
-    Route::get('/admin/register',[AdminController::class, 'AdminRegister'])->name('admin.register');
-    Route::post('new/admin/store',[AdminController::class, 'NewAdminStore'])->name('new.admin.store');
+    Route::get('/admin/dashboard', [AdminController::class, 'Dashboard'])->name('admin.dashboard');
+    Route::get('/admin/register', [AdminController::class, 'AdminRegister'])->name('admin.register');
+    Route::post('new/admin/store', [AdminController::class, 'NewAdminStore'])->name('new.admin.store');
 });
 
 //User All route
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
 //All Brand Route
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('brand')->group(function(){
+    Route::prefix('brand')->group(function () {
         Route::get('/view', [BrandController::class, 'BrandView'])->name('all.brands');
         Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
         Route::get('/edit/{id}', [BrandController::class, 'BrandEdit'])->name('brand.edit');
@@ -59,7 +59,7 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 
 //All Brand Route
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('category')->group(function(){
+    Route::prefix('category')->group(function () {
         Route::get('/view', [CategoryController::class, 'CategoryView'])->name('all.category');
         Route::post('/store', [CategoryController::class, 'CategoryStore'])->name('category.store');
         Route::get('/edit/{id}', [CategoryController::class, 'CategoryEdit'])->name('category.edit');
@@ -83,7 +83,7 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 });
 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('product')->group(function(){
+    Route::prefix('product')->group(function () {
         Route::get('/add', [ProductController::class, 'AddProduct'])->name('add-product');
         Route::post('/store', [ProductController::class, 'StoreProduct'])->name('product-store');
         Route::get('/manage', [ProductController::class, 'ManageProduct'])->name('manage-product');
@@ -96,16 +96,15 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::get('/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('product.inactive');
         Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
         Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('product.delete');
-        
     });
 });
 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('slider')->group(function(){
-        Route::get('/view', [SliderController::class, 'SliderView'])->name('manage-slider');       
-        Route::post('/store', [SliderController::class, 'SliderStore'])->name('slider.store'); 
-        Route::get('/edit/{id}', [SliderController::class, 'SliderEdit'])->name('slider.edit');   
-        Route::post('/update', [SliderController::class, 'SliderUpdate'])->name('slider.update');  
+    Route::prefix('slider')->group(function () {
+        Route::get('/view', [SliderController::class, 'SliderView'])->name('manage-slider');
+        Route::post('/store', [SliderController::class, 'SliderStore'])->name('slider.store');
+        Route::get('/edit/{id}', [SliderController::class, 'SliderEdit'])->name('slider.edit');
+        Route::post('/update', [SliderController::class, 'SliderUpdate'])->name('slider.update');
         Route::get('/delete/{id}', [SliderController::class, 'SliderDelete'])->name('slider.delete');
         Route::get('/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
         Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
@@ -118,5 +117,8 @@ Route::get('/language/bangla', [LanguageController::class, 'Bangla'])->name('ban
 Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
 
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
-            
-require __DIR__.'/auth.php';
+
+// Frontend Product Tags Page 
+Route::get('/product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);
+
+require __DIR__ . '/auth.php';
