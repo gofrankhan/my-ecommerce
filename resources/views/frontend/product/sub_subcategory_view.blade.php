@@ -1,14 +1,30 @@
 @extends('frontend.main_master')
 @section('content')
 @section('title')
-    Tag Wise Product
+    Sub - Subcategory Product
 @endsection
+
+
+
+
+
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
                 <li><a href="#">Home</a></li>
-                <li class='active'>Handbags</li>
+                @foreach ($breadsubsubcat as $item)
+                    <li class='active'>{{ $item->category->category_name_en }}</li>
+                @endforeach
+
+                @foreach ($breadsubsubcat as $item)
+                    <li class='active'>{{ $item->subcategory->subcategory_name_en }}</li>
+                @endforeach
+
+                @foreach ($breadsubsubcat as $item)
+                    <li class='active'>{{ $item->subsubcategory_name_en }}</li>
+                @endforeach
+
             </ul>
         </div>
         <!-- /.breadcrumb-inner -->
@@ -20,9 +36,14 @@
     <div class='container'>
         <div class='row'>
             <div class='col-md-3 sidebar'>
+
                 <!-- ===== == TOP NAVIGATION ======= ==== -->
                 @include('frontend.common.vertical_menu')
                 <!-- = ==== TOP NAVIGATION : END === ===== -->
+
+
+
+
                 <div class="sidebar-module-container">
                     <div class="sidebar-filter">
                         <!-- ============================================== SIDEBAR CATEGORY ============================================== -->
@@ -33,12 +54,14 @@
                             </div>
                             <div class="sidebar-widget-body">
                                 <div class="accordion">
+
+
                                     @foreach ($categories as $category)
                                         <div class="accordion-group">
                                             <div class="accordion-heading"> <a href="#collapse{{ $category->id }}"
                                                     data-toggle="collapse" class="accordion-toggle collapsed">
-                                                    @if (session()->get('language') == 'bangla')
-                                                        {{ $category->category_name_bn }}
+                                                    @if (session()->get('language') == 'hindi')
+                                                        {{ $category->category_name_hin }}
                                                     @else
                                                         {{ $category->category_name_en }}
                                                     @endif
@@ -47,6 +70,7 @@
                                             <div class="accordion-body collapse" id="collapse{{ $category->id }}"
                                                 style="height: 0px;">
                                                 <div class="accordion-inner">
+
                                                     @php
                                                         $subcategories = App\Models\SubCategory::where(
                                                             'category_id',
@@ -55,11 +79,13 @@
                                                             ->orderBy('subcategory_name_en', 'ASC')
                                                             ->get();
                                                     @endphp
+
                                                     @foreach ($subcategories as $subcategory)
                                                         <ul>
-                                                            <li><a href="#">
-                                                                    @if (session()->get('language') == 'bangla')
-                                                                        {{ $subcategory->subcategory_name_bn }}
+                                                            <li><a
+                                                                    href="{{ url('subcategory/product/' . $subcategory->id . '/' . $subcategory->subcategory_slug_en) }}">
+                                                                    @if (session()->get('language') == 'hindi')
+                                                                        {{ $subcategory->subcategory_name_hin }}
                                                                     @else
                                                                         {{ $subcategory->subcategory_name_en }}
                                                                     @endif
@@ -68,6 +94,8 @@
 
                                                         </ul>
                                                     @endforeach
+
+
                                                 </div>
                                                 <!-- /.accordion-inner -->
                                             </div>
@@ -75,6 +103,17 @@
                                         </div>
                                         <!-- /.accordion-group -->
                                     @endforeach
+
+
+
+
+
+
+
+
+
+
+
                                 </div>
                                 <!-- /.accordion -->
                             </div>
@@ -162,10 +201,17 @@
                         <!-- /.sidebar-widget -->
                         <!-- == ====== END PRODUCT TAGS ==== ======= -->
 
+
+
+
+
+
                         <!----------- Testimonials------------->
 
                         @include('frontend.common.testimonials')
                         <!-- == ========== Testimonials: END ======== ========= -->
+
+
 
                         <div class="home-banner"> <img
                                 src="{{ asset('frontend/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
@@ -177,7 +223,11 @@
             </div>
             <!-- /.sidebar -->
             <div class='col-md-9'>
+
+
+
                 <!-- == ==== SECTION – HERO === ====== -->
+
                 <div id="category" class="category-carousel hidden-xs">
                     <div class="item">
                         <div class="image"> <img src="{{ asset('frontend/assets/images/banners/cat-banner-1.jpg') }}"
@@ -194,6 +244,25 @@
                         <!-- /.container-fluid -->
                     </div>
                 </div>
+
+
+                @foreach ($breadsubsubcat as $item)
+                    <span class="badge badge-danger"
+                        style="background: #808080">{{ $item->category->category_name_en }} </span>
+                @endforeach
+
+                @foreach ($breadsubsubcat as $item)
+                    <span class="badge badge-danger"
+                        style="background: #808080">{{ $item->subcategory->subcategory_name_en }} </span>
+                @endforeach
+
+                @foreach ($breadsubsubcat as $item)
+                    <span class="badge badge-danger" style="background: #FF0000">{{ $item->subsubcategory_name_en }}
+                    </span>
+                @endforeach
+
+
+
                 <div class="clearfix filters-container m-t-10">
                     <div class="row">
                         <div class="col col-sm-6 col-md-2">
@@ -273,6 +342,9 @@
                         <div class="tab-pane active " id="grid-container">
                             <div class="category-product">
                                 <div class="row">
+
+
+
                                     @foreach ($products as $product)
                                         <div class="col-sm-6 col-md-4 wow fadeInUp">
                                             <div class="products">
@@ -295,17 +367,19 @@
                                                                 <div class="tag new"><span>new</span></div>
                                                             @else
                                                                 <div class="tag hot">
-                                                                    <span>{{ round($discount) }}%</span>
-                                                                </div>
+                                                                    <span>{{ round($discount) }}%</span></div>
                                                             @endif
                                                         </div>
+
+
                                                     </div>
                                                     <!-- /.product-image -->
+
                                                     <div class="product-info text-left">
                                                         <h3 class="name"><a
                                                                 href="{{ url('product/details/' . $product->id . '/' . $product->product_slug_en) }}">
-                                                                @if (session()->get('language') == 'bangla')
-                                                                    {{ $product->product_name_bn }}
+                                                                @if (session()->get('language') == 'hindi')
+                                                                    {{ $product->product_name_hin }}
                                                                 @else
                                                                     {{ $product->product_name_en }}
                                                                 @endif
@@ -313,6 +387,8 @@
                                                         </h3>
                                                         <div class="rating rateit-small"></div>
                                                         <div class="description"></div>
+
+
                                                         @if ($product->discount_price == null)
                                                             <div class="product-price"> <span class="price">
                                                                     ${{ $product->selling_price }} </span> </div>
@@ -322,6 +398,10 @@
                                                                     class="price-before-discount">$
                                                                     {{ $product->selling_price }}</span> </div>
                                                         @endif
+
+
+
+
                                                         <!-- /.product-price -->
 
                                                     </div>
@@ -356,6 +436,16 @@
                                         <!-- /.item -->
                                     @endforeach
 
+
+
+
+
+
+
+
+
+
+
                                 </div>
                                 <!-- /.row -->
                             </div>
@@ -366,9 +456,18 @@
 
                         <!--            //////////////////// END Product Grid View  ////////////// -->
 
+
+
+
                         <!--            //////////////////// Product List View Start ////////////// -->
+
+
+
                         <div class="tab-pane " id="list-container">
                             <div class="category-product">
+
+
+
                                 @foreach ($products as $product)
                                     <div class="category-product-inner wow fadeInUp">
                                         <div class="products">
@@ -387,8 +486,8 @@
                                                         <div class="product-info">
                                                             <h3 class="name"><a
                                                                     href="{{ url('product/details/' . $product->id . '/' . $product->product_slug_en) }}">
-                                                                    @if (session()->get('language') == 'bangla')
-                                                                        {{ $product->product_name_bn }}
+                                                                    @if (session()->get('language') == 'hindi')
+                                                                        {{ $product->product_name_hin }}
                                                                     @else
                                                                         {{ $product->product_name_en }}
                                                                     @endif
@@ -409,8 +508,8 @@
 
                                                             <!-- /.product-price -->
                                                             <div class="description m-t-10">
-                                                                @if (session()->get('language') == 'bangla')
-                                                                    {{ $product->short_descp_bn }}
+                                                                @if (session()->get('language') == 'hindi')
+                                                                    {{ $product->short_descp_hin }}
                                                                 @else
                                                                     {{ $product->short_descp_en }}
                                                                 @endif
@@ -446,6 +545,9 @@
                                                     </div>
                                                     <!-- /.col -->
                                                 </div>
+
+
+
                                                 @php
                                                     $amount = $product->selling_price - $product->discount_price;
                                                     $discount = ($amount / $product->selling_price) * 100;
@@ -461,6 +563,8 @@
                                                     @endif
                                                 </div>
 
+
+
                                             </div>
                                             <!-- /.product-list -->
                                         </div>
@@ -468,7 +572,17 @@
                                     </div>
                                     <!-- /.category-product-inner -->
                                 @endforeach
+
+
+
                                 <!--            //////////////////// Product List View END ////////////// -->
+
+
+
+
+
+
+
 
                             </div>
                             <!-- /.category-product -->
@@ -487,10 +601,13 @@
                             <!-- /.pagination-container -->
                         </div>
                         <!-- /.text-right -->
+
                     </div>
                     <!-- /.filters-container -->
+
                 </div>
                 <!-- /.search-result-container -->
+
             </div>
             <!-- /.col -->
         </div>
@@ -552,11 +669,21 @@
                 <!-- /.owl-carousel #logo-slider -->
             </div>
             <!-- /.logo-slider-inner -->
+
         </div>
         <!-- /.logo-slider -->
         <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
     </div>
     <!-- /.container -->
+
 </div>
 <!-- /.body-content -->
+
+
+
+
+
+
+
+
 @endsection
