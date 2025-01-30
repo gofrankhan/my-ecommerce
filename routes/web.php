@@ -127,4 +127,7 @@ Route::get('/subsubcategory/product/{subsubcat_id}/{slug}', [IndexController::cl
 // Frontend Product Tags Page 
 Route::get('/product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);
 
+// Product View Modal with Ajax
+Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
+
 require __DIR__ . '/auth.php';

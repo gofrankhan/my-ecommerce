@@ -149,5 +149,79 @@
         </div>
     </div>
     <!-- End Add to Cart Product Modal -->
+
+    <script type="text/javascript">
+       
+       $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        })
+    
+        // Start Product View with Modal 
+        function productView(id){
+            $.ajax({
+                type: 'GET',
+                url: '/product/view/modal/'+id,
+                dataType:'json',
+                success:function(data){
+                    // console.log(data)
+                    $('#pname').text(data.product.product_name_en);
+                    $('#price').text(data.product.selling_price);
+                    $('#pcode').text(data.product.product_code);
+                    $('#pcategory').text(data.product.category.category_name_en);
+                    $('#pbrand').text(data.product.brand.brand_name_en);
+                    $('#pimage').attr('src','/'+data.product.product_thambnail);
+        
+                    $('#product_id').val(id);
+                    $('#qty').val(1);
+        
+                    // Product Price 
+                    if (data.product.discount_price == null) {
+                        $('#pprice').text('');
+                        $('#oldprice').text('');
+                        $('#pprice').text(data.product.selling_price);
+        
+        
+                    }else{
+                        $('#pprice').text(data.product.discount_price);
+                        $('#oldprice').text(data.product.selling_price);
+        
+                    } // end prodcut price 
+        
+                    // Start Stock opiton
+        
+                    if (data.product.product_qty > 0) {
+                        $('#aviable').text('');
+                        $('#stockout').text('');
+                        $('#aviable').text('available');
+        
+                    }else{
+                        $('#aviable').text('');
+                        $('#stockout').text('');
+                        $('#stockout').text('stock out');
+                    } // end Stock Option 
+        
+                    // Color
+                    $('select[name="color"]').empty();        
+                    $.each(data.color,function(key,value){
+                        $('select[name="color"]').append('<option value=" '+value+' ">'+value+' </option>')
+                    }) // end color
+        
+                    // Size
+                    $('select[name="size"]').empty();        
+                    $.each(data.size,function(key,value){
+                        $('select[name="size"]').append('<option value=" '+value+' ">'+value+' </option>')
+                        if (data.size == "") {
+                            $('#sizeArea').hide();
+                        }else{
+                            $('#sizeArea').show();
+                        }
+                    }) // end size
+                }
+            })
+        }
+        // Eend Product View with Modal 
+    </script> 
 </body>
 </html>
