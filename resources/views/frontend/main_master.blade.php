@@ -5,6 +5,7 @@
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
@@ -94,22 +95,23 @@
 
     <!-- Add to Cart Product Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog" style="width: 700px;">
+            <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><strong><span id="pname"></span> </strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModel">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong><span id="pname"></span> </strong>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModel">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card" style="width: 18rem;">
-                                <img src=" " class="card-img-top" alt="..." style="height: 200px; width: 200px;" id="pimage">                       
+                                <img src=" " class="card-img-top" alt="..." style="height: 200px; width: 200px; padding:10px" id="pimage">                       
                             </div>
                         </div><!-- // end col md -->
-                        <div class="col-md-4">
+                        <div class="col-md-4"  style="width: 230px;">
                             <ul class="list-group">
                                 <li class="list-group-item">Product Price: <strong class="text-danger">$<span id="pprice"></span></strong>
                                 <del id="oldprice">$</del>
@@ -118,7 +120,7 @@
                                 <li class="list-group-item">Category: <strong id="pcategory"></strong></li>
                                 <li class="list-group-item">Brand: <strong id="pbrand"></strong></li>
                                 <li class="list-group-item">Stock: 
-                                    <span class="badge badge-pill badge-success" id="aviable" style="background: green; color: white;"></span> 
+                                    <span class="badge badge-pill badge-success" id="available" style="background: green; color: white;"></span> 
                                     <span class="badge badge-pill badge-danger" id="stockout" style="background: red; color: white;"></span> 
                                 </li>
                             </ul>
@@ -141,7 +143,7 @@
                                 <input type="number" class="form-control" id="qty" value="1" min="1" >
                             </div> <!-- // end form group -->
                             <input type="hidden" id="product_id">
-                            <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()" >Add to Cart</button>
+                            <button style="float: right;" type="submit" class="btn btn-primary mb-2" onclick="addToCart()" >Add to Cart</button>
                         </div><!-- // end col md -->
                     </div> <!-- // end row -->
                 </div> <!-- // end modal Body -->
@@ -222,6 +224,125 @@
             })
         }
         // Eend Product View with Modal 
+
+        // Start Add To Cart Product 
+
+        function addToCart(){
+            var product_name = $('#pname').text();
+            var id = $('#product_id').val();
+            var color = $('#color option:selected').text();
+            var size = $('#size option:selected').text();
+            var quantity = $('#qty').val();
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data:{
+                    color:color, size:size, quantity:quantity, product_name:product_name
+                },
+                url: "/cart/data/store/"+id,
+                success:function(data){
+                    miniCart()
+                    $('#closeModel').click();
+                    // console.log(data)
+
+                    // Start Message 
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+
+                    }else{
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+
+                    }
+                    // End Message 
+                }
+            })
+
+        }
+        
+        // End Add To Cart Product 
     </script> 
+
+    <script type="text/javascript">
+        function miniCart(){
+        $.ajax({
+            type: 'GET',
+            url: '/product/mini/cart',
+            dataType:'json',
+            success:function(response){
+
+                $('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('#cartQty').text(response.cartQty);
+                var miniCart = ""
+
+                $.each(response.carts, function(key,value){
+                    miniCart += `<div class="cart-item product-summary">
+                    <div class="row">
+                    <div class="col-xs-4">
+                        <div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
+                    </div>
+                    <div class="col-xs-7">
+                        <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+                        <div class="price"> ${value.price} * ${value.qty} </div>
+                    </div>
+                    <div class="col-xs-1 action"> 
+                    <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
+                    </div>
+                </div>
+                <!-- /.cart-item -->
+                <div class="clearfix"></div>
+                <hr>`
+                });
+                        
+                        $('#miniCart').html(miniCart);
+                    }
+                })
+
+        }
+        miniCart();
+    /// mini cart remove Start 
+    function miniCartRemove(rowId){
+        $.ajax({
+            type: 'GET',
+            url: '/minicart/product-remove/'+rowId,
+            dataType:'json',
+            success:function(data){
+            miniCart();
+                // Start Message 
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
+                } // End Message 
+            }
+        });
+    }
+    //  end mini cart remove 
+    </script>
 </body>
 </html>
