@@ -114,7 +114,7 @@
                 </div>
                 <!-- /.logo-holder -->
 
-                <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
+                <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
@@ -146,7 +146,7 @@
                 </div>
                 <!-- /.top-search-holder -->
 
-                <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
+                <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
           
                     <div class="dropdown dropdown-cart"> 
@@ -155,7 +155,7 @@
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                                 <div class="basket-item-count"><span class="count" id="cartQty"> </span></div>
                                 <div class="total-price-basket"> <span class="lbl">cart -</span> 
-                                    <span class="total-price"> <span class="sign">$</span>
+                                    <span class="total-price"> <span class="sign">৳</span>
                                     <span class="value" id="cartSubTotal"> </span> </span>
                                 </div>
                             </div>

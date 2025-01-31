@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap-select.min.css') }}">
+    
 
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/font-awesome.css') }}">
@@ -67,6 +68,8 @@
     <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -194,14 +197,14 @@
                     // Start Stock opiton
         
                     if (data.product.product_qty > 0) {
-                        $('#aviable').text('');
+                        $('#available').text('');
                         $('#stockout').text('');
-                        $('#aviable').text('available');
+                        $('#available').text('available');
         
                     }else{
-                        $('#aviable').text('');
+                        $('#available').text('');
                         $('#stockout').text('');
-                        $('#stockout').text('stock out');
+                        $('#available').text('stock out');
                     } // end Stock Option 
         
                     // Color
