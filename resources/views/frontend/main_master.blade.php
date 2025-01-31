@@ -393,10 +393,11 @@
         function wishlist(){
             $.ajax({
                 type: 'GET',
-                url: '/user/get-wishlist-product',
+                url: '/get-wishlist-product',
                 dataType:'json',
                 success:function(response){
-                    var rows = ""
+                    var rows = "";
+                    console.log(response)
                     $.each(response, function(key,value){
                         rows += `<tr>
                             <td class="col-md-2"><img src="/${value.product.product_thambnail} " alt="imga"></td>
@@ -431,7 +432,7 @@
         function wishlistRemove(id){
             $.ajax({
                 type: 'GET',
-                url: '/user/wishlist-remove/'+id,
+                url: '/wishlist-remove/'+id,
                 dataType:'json',
                 success:function(data){
                 wishlist();

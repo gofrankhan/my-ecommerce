@@ -13,7 +13,7 @@
                                     My Account
                                 @endif
                             </a></li>
-                        <li><a href="#"><i class="icon fa fa-heart"></i>
+                        <li><a href="{{ route('wishlist') }}"><i class="icon fa fa-heart"></i>
                                 @if (session()->get('language') == 'bangla')
                                     পছন্দের তালিকা
                                 @else
