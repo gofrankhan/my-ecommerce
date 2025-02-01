@@ -536,7 +536,7 @@
            url: '/user/cart-remove/'+id,
            dataType:'json',
            success:function(data){
-           couponCalculation();
+            couponCalculation();
            cart();
            miniCart();
            $('#couponField').show();
@@ -574,7 +574,7 @@
            url: "/cart-increment/"+rowId,
            dataType:'json',
            success:function(data){
-               couponCalculation();
+                couponCalculation();
                cart();
                miniCart();
             }
@@ -696,6 +696,48 @@
     
     </script>
     <!--  //////////////// =========== End Coupon Apply Start ================= ////  -->
-    
+
+    <!--  //////////////// =========== Start Coupon Remove================= ////  -->
+ 
+    <script type="text/javascript">       
+        function couponRemove(){
+        $.ajax({
+            type:'GET',
+            url: "{{ url('/coupon-remove') }}",
+            dataType: 'json',
+            success:function(data){
+                couponCalculation();
+                $('#couponField').show();
+                $('#coupon_name').val('');
+                    // Start Message 
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success
+                        })
+
+                    }else{
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error
+                        })
+
+                    }
+                    // End Message 
+                }
+            });
+        }
+
+    </script>
+
 </body>
 </html>

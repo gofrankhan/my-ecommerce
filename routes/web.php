@@ -18,6 +18,9 @@ use App\Http\Controllers\Frontend\LanguageController;
 
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
+use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\User\CashController;
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -156,6 +159,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+    Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
+    Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
 });
 
 // My Cart Page All Routes
@@ -200,8 +205,19 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::get('/state/edit/{id}', [ShippingAreaController::class, 'StateEdit'])->name('state.edit');
         Route::post('/state/update/{id}', [ShippingAreaController::class, 'StateUpdate'])->name('state.update');
         Route::get('/state/delete/{id}', [ShippingAreaController::class, 'StateDelete'])->name('state.delete');
-        });
     });
+});
+
+// Frontend Coupon Option
+Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
+Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
+
+ // Checkout Routes 
+ Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+ Route::get('/district-get/ajax/{division_id}', [CheckoutController::class, 'DistrictGetAjax']);
+ Route::get('/state-get/ajax/{district_id}', [CheckoutController::class, 'StateGetAjax']);
+ Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
 
 
 require __DIR__ . '/auth.php';

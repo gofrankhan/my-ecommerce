@@ -27,7 +27,7 @@
                                     My Cart
                                 @endif
                             </a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>
+                        <li><a href="{{ route('checkout') }}"><i class="icon fa fa-check"></i>
                                 @if (session()->get('language') == 'bangla')
                                     চেকআউট
                                 @else
@@ -173,7 +173,7 @@
                                         <span class='price'  id="cartSubTotal"></span>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                                    <a href="{{ route('checkout')}}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
                                 </div>
                                 <!-- /.cart-total--> 
                             </li>
