@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\CouponController;
 
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -162,6 +163,18 @@ Route::get('/user/get-cart-product', [CartPageController::class, 'GetCartProduct
 Route::get('/user/cart-remove/{rowId}', [CartPageController::class, 'RemoveCartProduct']);
 Route::get('/cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
 Route::get('/cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
+
+// Admin Coupons All Routes 
+
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('coupons')->group(function(){
+        Route::get('/view', [CouponController::class, 'CouponView'])->name('manage-coupon');
+        Route::post('/store', [CouponController::class, 'CouponStore'])->name('coupon.store');
+        Route::get('/edit/{id}', [CouponController::class, 'CouponEdit'])->name('coupon.edit');
+        Route::post('/update/{id}', [CouponController::class, 'CouponUpdate'])->name('coupon.update');
+        Route::get('/delete/{id}', [CouponController::class, 'CouponDelete'])->name('coupon.delete');
+    });
+});
 
 
 require __DIR__ . '/auth.php';
