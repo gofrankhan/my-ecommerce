@@ -29,8 +29,7 @@
                                     <th colspan="4" class="heading-title">My Wishlist</th>
                                 </tr>
                             </thead>
-                            <tbody id="wishlist">
-                                
+                            <tbody id="wishlist">                               
                                 
                             </tbody>
                         </table>
