@@ -5,20 +5,26 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use Illuminate\Support\Facades\Session;
+use Auth;
+use Carbon\Carbon; 
+
+use App\Models\Coupon;
+use Cart;
+
 class CashController extends Controller
 {
     //
     public function CashOrder(Request $request){
 
-
-    	if (Session::has('coupon')) {
+    	if (session::has('coupon')) {
     		$total_amount = Session::get('coupon')['total_amount'];
     	}else{
     		$total_amount = round(Cart::total());
     	}
- 
-	 
-
+		
 	  // dd($charge);
 
      $order_id = Order::insertGetId([
@@ -73,7 +79,6 @@ class CashController extends Controller
      		'qty' => $cart->qty,
      		'price' => $cart->price,
      		'created_at' => Carbon::now(),
-
      	]);
      }
 
@@ -90,7 +95,6 @@ class CashController extends Controller
 		);
 
 		return redirect()->route('dashboard')->with($notification);
- 
 
     } // end method 
 }
