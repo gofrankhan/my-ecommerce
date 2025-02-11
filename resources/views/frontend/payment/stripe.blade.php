@@ -116,6 +116,7 @@ Stripe Payment Page
           </div> 
           <!-- checkout-progress-sidebar -->
         </div><!--  // end col md 6 -->
+      </form>
       </div><!-- /.row -->
     </div><!-- /.checkout-box -->
 		<!-- === ===== BRANDS CAROUSEL ==== ======== -->

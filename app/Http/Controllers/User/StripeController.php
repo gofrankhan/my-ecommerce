@@ -38,7 +38,7 @@ class StripeController extends Controller
 	  'metadata' => ['order_id' => uniqid()],
 	]);
 
-	  // dd($charge);
+	//   dd($charge);
 
      $order_id = Order::insertGetId([
      	'user_id' => Auth::id(),

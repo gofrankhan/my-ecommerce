@@ -34,27 +34,19 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800'
         rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body class="cnt-home">
     <!-- ============================================== HEADER ============================================== -->
-
     @include('frontend.body.header');
-
     <!-- ============================================== HEADER : END ============================================== -->
-
     @yield('content')
-
     <!-- ============================================================= FOOTER ============================================================= -->
-
     @include('frontend.body.footer');
-
     <!-- ============================================================= FOOTER : END============================================================= -->
-
     <!-- For demo purposes – can be removed on production -->
-
     <!-- For demo purposes – can be removed on production : End -->
-
     <!-- JavaScripts placed at the end of the document so the pages load faster -->
     <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
@@ -80,15 +72,12 @@
                 case 'info':
                     toastr.info(" {{ Session::get('message') }} ");
                     break;
-
                 case 'success':
                     toastr.success(" {{ Session::get('message') }} ");
                     break;
-
                 case 'warning':
                     toastr.warning(" {{ Session::get('message') }} ");
                     break;
-
                 case 'error':
                     toastr.error(" {{ Session::get('message') }} ");
                     break;
