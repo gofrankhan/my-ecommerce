@@ -18,7 +18,7 @@ class OrderMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
         $this->data = $data;
     }
@@ -39,7 +39,8 @@ class OrderMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mail.order_mail',
+            with: [$this->data],
         );
     }
 

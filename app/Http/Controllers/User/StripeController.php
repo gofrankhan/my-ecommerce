@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Mail\OrderMail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 use Auth;
 use Carbon\Carbon; 
 
@@ -108,7 +110,7 @@ class StripeController extends Controller
 			'alert-type' => 'success'
 		);
 
-		return redirect()->route('dashboard')->with($notification);
+		return redirect()->route('user.dashboard')->with($notification);
  
 
     } // end method 
