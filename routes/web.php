@@ -21,7 +21,6 @@ use App\Http\Controllers\User\CartPageController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\User\CashController;
-
 use App\Http\Controllers\User\AllUserController;
 
 use Illuminate\Support\Facades\Route;
@@ -58,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
+
 });
 
 //All Brand Route
@@ -222,6 +221,17 @@ Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
  Route::get('/district-get/ajax/{division_id}', [CheckoutController::class, 'DistrictGetAjax']);
  Route::get('/state-get/ajax/{district_id}', [CheckoutController::class, 'StateGetAjax']);
  Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
+
+ Route::middleware('auth')->group(function () {
+    Route::prefix('order')->group(function(){
+        Route::get('/my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
+        Route::get('/order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
+        Route::get('/invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
+        Route::post('/return/order/{order_id}', [AllUserController::class, 'ReturnOrder'])->name('return.order');
+        Route::get('/return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
+        Route::get('/cancel/orders', [AllUserController::class, 'CancelOrders'])->name('cancel.orders');
+    });
+});
 
 
 require __DIR__ . '/auth.php';
