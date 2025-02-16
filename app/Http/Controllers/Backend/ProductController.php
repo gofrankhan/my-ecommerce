@@ -38,7 +38,7 @@ class ProductController extends Controller
     }
     $image = $request->file('product_thambnail');
     $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-    //Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
+    // Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
     $save_url = 'upload/products/thambnail/' . $name_gen;
     $destinationPath = 'upload/products/thambnail';
     $image->move($destinationPath, $name_gen);
