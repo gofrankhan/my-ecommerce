@@ -3,21 +3,15 @@
 @section('title')
     Subcategory Product
 @endsection
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
                 <li><a href="#">Home</a></li>
-
                 @foreach ($breadsubcat as $item)
                     <li class='active'>{{ $item->category->category_name_en }}</li>
                 @endforeach
-
                 @foreach ($breadsubcat as $item)
                     <li class='active'>{{ $item->subcategory_name_en }}</li>
                 @endforeach

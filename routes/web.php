@@ -56,8 +56,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/logout', [IndexController::class, 'UserLogout'])->name('user.logout');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
 });
 
 //All Brand Route
@@ -176,7 +174,7 @@ Route::get('/cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement
 // Admin Coupons All Routes 
 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('coupons')->group(function(){
+    Route::prefix('coupons')->group(function () {
         Route::get('/view', [CouponController::class, 'CouponView'])->name('manage-coupon');
         Route::post('/store', [CouponController::class, 'CouponStore'])->name('coupon.store');
         Route::get('/edit/{id}', [CouponController::class, 'CouponEdit'])->name('coupon.edit');
@@ -187,21 +185,21 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 
 // Admin Shipping All Routes 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('shipping')->group(function(){
+    Route::prefix('shipping')->group(function () {
         // Ship Division 
         Route::get('/division/view', [ShippingAreaController::class, 'DivisionView'])->name('manage-division');
         Route::post('/division/store', [ShippingAreaController::class, 'DivisionStore'])->name('division.store');
         Route::get('/division/edit/{id}', [ShippingAreaController::class, 'DivisionEdit'])->name('division.edit');
         Route::post('/division/update/{id}', [ShippingAreaController::class, 'DivisionUpdate'])->name('division.update');
         Route::get('/division/delete/{id}', [ShippingAreaController::class, 'DivisionDelete'])->name('division.delete');
-        
+
         // Ship District 
         Route::get('/district/view', [ShippingAreaController::class, 'DistrictView'])->name('manage-district');
         Route::post('/district/store', [ShippingAreaController::class, 'DistrictStore'])->name('district.store');
         Route::get('/district/edit/{id}', [ShippingAreaController::class, 'DistrictEdit'])->name('district.edit');
         Route::post('/district/update/{id}', [ShippingAreaController::class, 'DistrictUpdate'])->name('district.update');
         Route::get('/district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
-        
+
         // Ship State 
         Route::get('/state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');
         Route::post('/state/store', [ShippingAreaController::class, 'StateStore'])->name('state.store');
@@ -216,14 +214,14 @@ Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
 Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
- // Checkout Routes 
- Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
- Route::get('/district-get/ajax/{division_id}', [CheckoutController::class, 'DistrictGetAjax']);
- Route::get('/state-get/ajax/{district_id}', [CheckoutController::class, 'StateGetAjax']);
- Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
+// Checkout Routes 
+Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+Route::get('/district-get/ajax/{division_id}', [CheckoutController::class, 'DistrictGetAjax']);
+Route::get('/state-get/ajax/{district_id}', [CheckoutController::class, 'StateGetAjax']);
+Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
 
- Route::middleware('auth')->group(function () {
-    Route::prefix('order')->group(function(){
+Route::middleware('auth')->group(function () {
+    Route::prefix('user')->group(function () {
         Route::get('/my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
         Route::get('/order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
         Route::get('/invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
