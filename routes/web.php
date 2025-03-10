@@ -266,5 +266,12 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     });
 });
 
+// Admin Get All User Routes 
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('alluser')->group(function(){
+        Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');  
+    });
+});
+
 
 require __DIR__ . '/auth.php';
