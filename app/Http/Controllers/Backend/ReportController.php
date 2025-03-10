@@ -24,6 +24,7 @@ class ReportController extends Controller
         $date = new DateTime($request->date);
         $formatDate = $date->format('d F Y');
         // return $formatDate;
+        // die();
         $orders = Order::where('order_date', $formatDate)->latest()->get();
         return view('backend.report.report_show', compact('orders'));
     } // end mehtod 
