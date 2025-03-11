@@ -273,5 +273,14 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     });
 });
 
+// Admin Return Order Routes 
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('return')->group(function(){
+        Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
+        Route::get('/admin/return/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
+        Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
+    });
+});
+
 
 require __DIR__ . '/auth.php';

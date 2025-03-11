@@ -62,7 +62,7 @@
                 </td>
 
                 <td class="col-md-2">
-                  <label for=""> {{ $order->invoice_no }}</label>
+                  <label for=""> {{ $order->order_number  }}</label>
                 </td>
 
                  <td class="col-md-2">
