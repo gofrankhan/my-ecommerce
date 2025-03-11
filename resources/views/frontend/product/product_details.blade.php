@@ -230,8 +230,88 @@
                                         </p>
                                     </div>
                                 </div><!-- /.tab-pane -->
+
                                 <div id="review" class="tab-pane">
                                     <div class="product-tag">
+                                        <div class="product-reviews">
+                                            <h4 class="title">Customer Reviews</h4>
+                                
+                                @php
+                                $reviews = App\Models\Reivew::where('product_id',$product->id)->latest()->limit(5)->get();
+                                @endphp			
+                                
+                                    <div class="reviews">
+                                         
+                                        @foreach($reviews as $item)
+                                        @if($item->status == 0)
+                                
+                                        @else
+                                
+                                        <div class="review">
+                                
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <img style="border-radius: 50%" src="{{ (!empty($item->user->profile_photo_path))? url('upload/user_images/'.$item->user->profile_photo_path):url('upload/no_image.jpg') }}" width="40px;" height="40px;"><b> {{ $item->user->name }}</b>
+                                
+                                
+                                 @if($item->rating == NULL)
+                                
+                                 @elseif($item->rating == 1)
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                 @elseif($item->rating == 2)
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                
+                                 @elseif($item->rating == 3)
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                
+                                 @elseif($item->rating == 4)
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                 @elseif($item->rating == 5)
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                
+                                @endif
+                                
+                                
+                                
+                                            </div>
+                                
+                                            <div class="col-md-6">
+                                                
+                                            </div>			
+                                        </div> <!-- // end row -->
+                                
+                                
+                                
+                                            <div class="review-title"><span class="summary">{{ $item->summary }}</span><span class="date"><i class="fa fa-calendar"></i><span> {{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }} </span></span></div>
+                                            <div class="text">"{{ $item->comment }}"</div>
+                                         </div>
+                                
+                                         @endif
+                                    @endforeach
+                                    </div><!-- /.reviews -->
+                                
+                                
+                                        </div><!-- /.product-reviews -->
                                         <div class="product-add-review">
                                             <h4 class="title">Write your own review</h4>
                                             <div class="review-table">
@@ -244,7 +324,7 @@
                                                 @else
                                                     <div class="form-container">
                                                         <form role="form" class="cnt-form" method="post"
-                                                            action="">
+                                                            action="{{ route('review.store') }}">
                                                             @csrf
                                                             <input type="hidden" name="product_id"
                                                                 value="{{ $product->id }}">

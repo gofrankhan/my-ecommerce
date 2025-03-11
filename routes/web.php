@@ -25,6 +25,7 @@ use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\User\CashController;
 use App\Http\Controllers\User\AllUserController;
+use App\Http\Controllers\User\ReviewController;
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -279,6 +280,19 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
         Route::get('/admin/return/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
         Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
+    });
+});
+
+/// Frontend Product Review Routes
+Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('review.store');
+
+// Admin Manage Review Routes 
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('review')->group(function(){
+        Route::get('/pending', [ReviewController::class, 'PendingReview'])->name('pending.review');
+        Route::get('/admin/approve/{id}', [ReviewController::class, 'ReviewApprove'])->name('review.approve');
+        Route::get('/publish', [ReviewController::class, 'PublishReview'])->name('publish.review');
+        Route::get('/delete/{id}', [ReviewController::class, 'DeleteReview'])->name('delete.review');
     });
 });
 
