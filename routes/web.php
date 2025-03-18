@@ -296,5 +296,13 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
     });
 });
 
+// Admin Manage Stock Routes 
+// Admin Manage Review Routes 
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('stock')->group(function(){
+        Route::get('/product', [ProductController::class, 'ProductStock'])->name('product.stock');
+    });
+});
+
 
 require __DIR__ . '/auth.php';
