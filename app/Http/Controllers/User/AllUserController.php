@@ -44,7 +44,8 @@ class AllUserController extends Controller
         return $pdf->download('invoice.pdf');
     } // end mehtod 
 
-    public function ReturnOrder(Request $request,$order_id){
+    public function ReturnOrder(Request $request, $order_id)
+    {
 
         Order::findOrFail($order_id)->update([
             'return_date' => Carbon::now()->format('d F Y'),
@@ -53,30 +54,33 @@ class AllUserController extends Controller
         ]);
 
 
-      $notification = array(
+        $notification = array(
             'message' => 'Return Request Send Successfully',
             'alert-type' => 'success'
         );
 
         return redirect()->route('my.orders')->with($notification);
-
     } // end method 
 
 
 
-    public function ReturnOrderList(){
+    public function ReturnOrderList()
+    {
 
-        $orders = Order::where('user_id',Auth::id())->where('return_reason','!=',NULL)->orderBy('id','DESC')->get();
-        return view('frontend.user.order.return_order_view',compact('orders'));
-
+        $orders = Order::where('user_id', Auth::id())->where('return_reason', '!=', NULL)->orderBy('id', 'DESC')->get();
+        return view('frontend.user.order.return_order_view', compact('orders'));
     } // end method 
 
 
 
-    public function CancelOrders(){
+    public function CancelOrders()
+    {
 
-        $orders = Order::where('user_id',Auth::id())->where('status','cancel')->orderBy('id','DESC')->get();
-        return view('frontend.user.order.cancel_order_view',compact('orders'));
-
+        $orders = Order::where('user_id', Auth::id())->where('status', 'cancel')->orderBy('id', 'DESC')->get();
+        return view('frontend.user.order.cancel_order_view', compact('orders'));
     } // end method 
+
+    ///////////// Order Traking ///////
+
+    public function OrderTraking() {} // end mehtod 
 }

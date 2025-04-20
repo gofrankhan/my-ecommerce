@@ -232,6 +232,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/return/order/{order_id}', [AllUserController::class, 'ReturnOrder'])->name('return.order');
         Route::get('/return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
         Route::get('/cancel/orders', [AllUserController::class, 'CancelOrders'])->name('cancel.orders');
+        Route::get('/order/tracking', [AllUserController::class, 'OrderTraking'])->name('order.tracking');
     });
 });
 
@@ -269,14 +270,14 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 
 // Admin Get All User Routes 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('alluser')->group(function(){
-        Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');  
+    Route::prefix('alluser')->group(function () {
+        Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
     });
 });
 
 // Admin Return Order Routes 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('return')->group(function(){
+    Route::prefix('return')->group(function () {
         Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
         Route::get('/admin/return/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
         Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
@@ -288,7 +289,7 @@ Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('re
 
 // Admin Manage Review Routes 
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('review')->group(function(){
+    Route::prefix('review')->group(function () {
         Route::get('/pending', [ReviewController::class, 'PendingReview'])->name('pending.review');
         Route::get('/admin/approve/{id}', [ReviewController::class, 'ReviewApprove'])->name('review.approve');
         Route::get('/publish', [ReviewController::class, 'PublishReview'])->name('publish.review');
@@ -298,11 +299,11 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 
 // Admin Manage Stock Routes 
 // Admin Manage Review Routes 
-Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
-    Route::prefix('stock')->group(function(){
-        Route::get('/product', [ProductController::class, 'ProductStock'])->name('product.stock');
-    });
-});
+// Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+//     Route::prefix('stock')->group(function () {
+//         Route::get('/product', [ProductController::class, 'ProductStock'])->name('product.stock');
+//     });
+// });
 
 
 require __DIR__ . '/auth.php';

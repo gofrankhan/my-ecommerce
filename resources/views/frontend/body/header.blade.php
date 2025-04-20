@@ -35,6 +35,8 @@
                                 @endif
                             </a></li>
                         @auth
+                            <li><a href="" type="button" data-toggle="modal" data-target="#ordertraking"><i
+                                        class="icon fa fa-check"></i>Order Traking</a></li>
                             <li><a href="{{ route('user.profile') }}"><i class="icon fa fa-user"></i>
                                     @if (session()->get('language') == 'bangla')
                                         প্রোফাইল
@@ -148,15 +150,46 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
-          
-                    <div class="dropdown dropdown-cart"> 
+                    <!-- Order Traking Modal -->
+                    <div class="modal fade" id="ordertraking" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="post" action="{{ route('order.tracking') }}">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <label>Invoice Code</label>
+                                            <input type="text" name="code" required="" class="form-control"
+                                                placeholder="Your Order Invoice Number">
+                                        </div>
+
+                                        <button class="btn btn-danger" type="submit" style="margin-left: 17px;">
+                                            Track Now </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown dropdown-cart">
                         <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                                 <div class="basket-item-count"><span class="count" id="cartQty"> </span></div>
-                                <div class="total-price-basket"> <span class="lbl">cart -</span> 
+                                <div class="total-price-basket"> <span class="lbl">cart -</span>
                                     <span class="total-price"> <span class="sign">৳</span>
-                                    <span class="value" id="cartSubTotal"> </span> </span>
+                                        <span class="value" id="cartSubTotal"> </span> </span>
                                 </div>
                             </div>
                         </a>
@@ -164,23 +197,24 @@
                             <li>
                                 <!--   // Mini Cart Start with Ajax -->
                                 <div id="miniCart">
-                                
+
                                 </div>
                                 <!--   // End Mini Cart Start with Ajax -->
                                 <div class="clearfix cart-total">
                                     <div class="pull-right">
                                         <span class="text">Sub Total :</span>
-                                        <span class='price'  id="cartSubTotal"></span>
+                                        <span class='price' id="cartSubTotal"></span>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <a href="{{ route('checkout')}}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                                    <a href="{{ route('checkout') }}"
+                                        class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
                                 </div>
-                                <!-- /.cart-total--> 
+                                <!-- /.cart-total-->
                             </li>
                         </ul>
-                        <!-- /.dropdown-menu--> 
+                        <!-- /.dropdown-menu-->
                     </div>
-                    <!-- /.dropdown-cart --> 
+                    <!-- /.dropdown-cart -->
                     <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->
                 </div>
                 <!-- /.top-cart-row -->
