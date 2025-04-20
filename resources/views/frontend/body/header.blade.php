@@ -150,38 +150,6 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
-                    <!-- Order Traking Modal -->
-                    <div class="modal fade" id="ordertraking" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form method="post" action="{{ route('order.tracking') }}">
-                                        @csrf
-                                        <div class="modal-body">
-                                            <label>Invoice Code</label>
-                                            <input type="text" name="code" required="" class="form-control"
-                                                placeholder="Your Order Invoice Number">
-                                        </div>
-
-                                        <button class="btn btn-danger" type="submit" style="margin-left: 17px;">
-                                            Track Now </button>
-
-                                    </form>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
                     <div class="dropdown dropdown-cart">
                         <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
                             <div class="items-cart-inner">
@@ -375,5 +343,35 @@
     </div>
     <!-- /.header-nav -->
     <!-- ============================================== NAVBAR : END ============================================== -->
+    <!-- Order Traking Modal -->
+    <div class="modal fade" id="ordertraking" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
+                    <form method="post" action="{{ route('order.tracking') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <label>Invoice Code</label>
+                            <input type="text" name="code" required="" class="form-control"
+                                placeholder="Your Order Invoice Number">
+                        </div>
+
+                        <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </header>

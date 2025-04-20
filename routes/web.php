@@ -232,7 +232,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/return/order/{order_id}', [AllUserController::class, 'ReturnOrder'])->name('return.order');
         Route::get('/return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
         Route::get('/cancel/orders', [AllUserController::class, 'CancelOrders'])->name('cancel.orders');
-        Route::get('/order/tracking', [AllUserController::class, 'OrderTraking'])->name('order.tracking');
+        Route::post('/order/tracking', [AllUserController::class, 'OrderTraking'])->name('order.tracking');
     });
 });
 
