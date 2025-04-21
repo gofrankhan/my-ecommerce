@@ -116,11 +116,12 @@
                 </div>
                 <!-- /.logo-holder -->
 
-                <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
+                <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form>
+                        <form method="post" action="{{ route('product.search') }}">
+                            @csrf
                             <div class="control-group">
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown"
@@ -138,10 +139,12 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <input class="search-field" placeholder="Search here..." />
-                                <a class="search-button" href="#"></a>
+                                <input class="search-field" onfocus="search_result_show()" onblur="search_result_hide()"
+                                    id="search" name="search" placeholder="Search here..." />
+                                <button class="search-button" type="submit"></button>
                             </div>
                         </form>
+                        <div id="searchProducts"></div>
                     </div>
                     <!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
