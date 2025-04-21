@@ -305,5 +305,8 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 //     });
 // });
 
+/// Product Search Route 
+Route::post('/search', [IndexController::class, 'ProductSearch'])->name('product.search');
+
 
 require __DIR__ . '/auth.php';

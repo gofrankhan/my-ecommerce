@@ -189,8 +189,9 @@ class IndexController extends Controller
 	}
 
 	/// Product View With Ajax
-	public function ProductViewAjax($id){
-		$product = Product::with('category','brand')->findOrFail($id);
+	public function ProductViewAjax($id)
+	{
+		$product = Product::with('category', 'brand')->findOrFail($id);
 
 		$color = $product->product_color_en;
 		$product_color = explode(',', $color);
@@ -204,6 +205,31 @@ class IndexController extends Controller
 			'size' => $product_size,
 
 		));
+	} // end method 
 
+	// Product Seach 
+	public function ProductSearch(Request $request)
+	{
+
+		$request->validate(["search" => "required"]);
+
+		$item = $request->search;
+		// echo "$item";
+		$categories = Category::orderBy('category_name_en', 'ASC')->get();
+		$products = Product::where('product_name_en', 'LIKE', "%$item%")->get();
+		return view('frontend.product.search', compact('products', 'categories'));
+	} // end method 
+
+	///// Advance Search Options 
+
+	public function SearchProduct(Request $request)
+	{
+
+		$request->validate(["search" => "required"]);
+
+		$item = $request->search;
+
+		$products = Product::where('product_name_en', 'LIKE', "%$item%")->select('product_name_en', 'product_thambnail', 'selling_price', 'id', 'product_slug_en')->limit(5)->get();
+		return view('frontend.product.search_product', compact('products'));
 	} // end method 
 }
