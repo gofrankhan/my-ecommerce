@@ -107,7 +107,7 @@
     <div class="main-header">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+                <div class="col-xs-12 col-sm-12 col-md-2 logo-holder">
                     <!-- ============================================================= LOGO ============================================================= -->
                     <div class="logo"> <a href="{{ url('/') }}"> <img
                                 src="{{ asset('frontend/assets/images/logo.png') }}" alt="logo"> </a> </div>
@@ -146,9 +146,9 @@
                         </form>
                         <div id="searchProducts"></div>
                     </div>
-                    <!-- /.search-area -->
-                    <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div>
+                <!-- /.search-area -->
+                <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 <!-- /.top-search-holder -->
 
                 <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
@@ -303,7 +303,8 @@
                                                             <li><a href="home.html">Home</a></li>
                                                             <li><a href="category.html">Category</a></li>
                                                             <li><a href="detail.html">Detail</a></li>
-                                                            <li><a href="shopping-cart.html">Shopping Cart Summary</a>
+                                                            <li><a href="shopping-cart.html">Shopping Cart
+                                                                    Summary</a>
                                                             </li>
                                                             <li><a href="checkout.html">Checkout</a></li>
                                                             <li><a href="blog.html">Blog</a></li>
@@ -311,7 +312,8 @@
                                                             <li><a href="contact.html">Contact</a></li>
                                                             <li><a href="sign-in.html">Sign In</a></li>
                                                             <li><a href="my-wishlist.html">Wishlist</a></li>
-                                                            <li><a href="terms-conditions.html">Terms and Condition</a>
+                                                            <li><a href="terms-conditions.html">Terms and
+                                                                    Condition</a>
                                                             </li>
                                                             <li><a href="track-orders.html">Track Orders</a></li>
                                                             <li><a
@@ -326,7 +328,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a>
+                                <li class="dropdown  navbar-right special-menu"> <a href="#">Todays
+                                        offer</a>
                                 </li>
                             </ul>
                             <!-- /.navbar-nav -->
@@ -367,7 +370,8 @@
                                 placeholder="Your Order Invoice Number">
                         </div>
 
-                        <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now </button>
+                        <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now
+                        </button>
 
                     </form>
 
@@ -378,3 +382,31 @@
         </div>
     </div>
 </header>
+
+<style>
+    .search-area {
+        position: relative;
+    }
+
+    #searchProducts {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 999;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+</style>
+
+
+<script>
+    function search_result_hide() {
+        $("#searchProducts").slideUp();
+    }
+
+    function search_result_show() {
+        $("#searchProducts").slideDown();
+    }
+</script>
