@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\ReportController;
 
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\Frontend\LanguageController;
 
 use App\Http\Controllers\User\WishlistController;
@@ -309,5 +310,7 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
 Route::post('/search', [IndexController::class, 'ProductSearch'])->name('product.search');
 Route::post('search-product', [IndexController::class, 'SearchProduct']);
 
-
+// Shop Page Route 
+Route::get('/shop', [ShopController::class, 'ShopPage'])->name('shop.page');
+Route::post('/shop/filter', [ShopController::class, 'ShopFilter'])->name('shop.filter');
 require __DIR__ . '/auth.php';

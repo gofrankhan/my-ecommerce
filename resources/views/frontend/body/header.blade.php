@@ -328,6 +328,7 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li> <a href="{{ route('shop.page') }}">Shop</a> </li>
                                 <li class="dropdown  navbar-right special-menu"> <a href="#">Todays
                                         offer</a>
                                 </li>
