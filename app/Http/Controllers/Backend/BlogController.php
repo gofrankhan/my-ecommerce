@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Blog\BlogPostCategory;
+use App\Models\Blog\BlogPost;
 use Carbon\Carbon;
 
 class BlogController extends Controller
@@ -83,4 +84,12 @@ class BlogController extends Controller
 		return redirect()->route('blog.category')->with($notification);
 
     } // end method 
+
+      public function ViewBlogPost(){
+
+        $blogcategory = BlogPostCategory::latest()->get();
+        $blogpost = BlogPost::latest()->get();
+        return view('backend.blog.post.post_view',compact('blogpost','blogcategory'));
+
+    }   
 }
