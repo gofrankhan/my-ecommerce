@@ -136,6 +136,20 @@
                 </ul>
             </li>
 
+
+            <li class="treeview {{ ($prefix == '/blog')?'active':'' }}  ">
+                <a href="#">
+                    <i data-feather="file"></i>
+                    <span>Manage Blog</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ ($route == 'blog.category')? 'active':'' }}"><a href="{{ route('blog.category') }}"><i class="ti-more"></i>Blog Category</a></li>
+                </ul>
+            </li> 
+
             <li class="treeview">
                 <a href="#">
                     <i data-feather="mail"></i> <span>Mailbox</span>

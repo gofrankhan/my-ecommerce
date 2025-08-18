@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ReturnController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\BlogController;
 
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -295,6 +296,14 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::get('/admin/approve/{id}', [ReviewController::class, 'ReviewApprove'])->name('review.approve');
         Route::get('/publish', [ReviewController::class, 'PublishReview'])->name('publish.review');
         Route::get('/delete/{id}', [ReviewController::class, 'DeleteReview'])->name('delete.review');
+    });
+});
+
+
+// Admin Reports Routes 
+Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
+    Route::prefix('blog')->group(function(){
+        Route::get('/category', [BlogController::class, 'BlogCategory'])->name('blog.category');
     });
 });
 
