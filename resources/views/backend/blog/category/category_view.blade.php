@@ -40,7 +40,7 @@
 		<td>{{ $item->blog_category_name_en }}</td>
 		 <td>{{ $item->blog_category_name_bn }}</td>
 		<td>
- <a href="{{ route('category.edit',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
+ <a href="{{ route('blog.category.edit',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
  <a href="{{ route('category.delete',$item->id) }}" class="btn btn-danger" title="Delete Data" id="delete">
  	<i class="fa fa-trash"></i></a>
 		</td>
@@ -75,7 +75,7 @@
 					<div class="table-responsive">
 
 
- <form method="post" action="{{ route('category.store') }}" >
+ <form method="post" action="{{ route('blogcategory.store') }}" >
 	 	@csrf
 					   
 
@@ -93,8 +93,8 @@
 	<div class="form-group">
 		<h5>Blog Category Bangla <span class="text-danger">*</span></h5>
 		<div class="controls">
-	 <input type="text" name="blog_category_name_hin" class="form-control" >
-     @error('blog_category_name_hin') 
+	 <input type="text" name="blog_category_name_bn" class="form-control" >
+     @error('blog_category_name_bn') 
 	 <span class="text-danger">{{ $message }}</span>
 	 @enderror 
 	  </div>
