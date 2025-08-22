@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\Frontend\HomeBlogController;
 
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
@@ -312,6 +313,8 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::post('/post/store', [BlogController::class, 'BlogPostStore'])->name('post-store');
     });
 });
+
+Route::get('/blog', [HomeBlogController::class, 'AddBlogPost'])->name('home.blog');
 
 // Admin Manage Stock Routes 
 // Admin Manage Review Routes 
