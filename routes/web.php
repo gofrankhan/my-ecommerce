@@ -307,7 +307,9 @@ Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function (
         Route::post('/store', [BlogController::class, 'BlogCategoryStore'])->name('blogcategory.store');
         Route::get('/category/edit/{id}', [BlogController::class, 'BlogCategoryEdit'])->name('blog.category.edit');
         Route::post('/update', [BlogController::class, 'BlogCategoryUpdate'])->name('blogcategory.update');
-        Route::get('/view/post', [BlogController::class, 'ViewBlogPost'])->name('view.post');
+        Route::get('/list/post', [BlogController::class, 'ListBlogPost'])->name('list.post');
+        Route::get('/add/post', [BlogController::class, 'AddBlogPost'])->name('add.post');
+        Route::post('/post/store', [BlogController::class, 'BlogPostStore'])->name('post-store');
     });
 });
 
