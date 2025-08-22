@@ -2,7 +2,7 @@
 @section('content')
  
 @section('title')
-Blog Page 
+Blog Category Page 
 @endsection
 
  
@@ -31,11 +31,11 @@ Blog Page
 					<div class="blog-post  wow fadeInUp">
 	<a href="blog-details.html"><img class="img-responsive" src="{{ asset($blog->post_image) }}" alt=""></a>
 
-	<h1><a href="blog-details.html"> @if(session()->get('language') == 'bangla') {{ $blog->post_title_bn }} @else {{ $blog->post_title_en }} @endif</a></h1>
+	<h1><a href="blog-details.html"> @if(session()->get('language') == 'hindi') {{ $blog->post_title_hin }} @else {{ $blog->post_title_en }} @endif</a></h1>
 	 
 	<span class="date-time"> {{ Carbon\Carbon::parse($blog->created_at)->diffForHumans()  }}</span>
 
-	<p>@if(session()->get('language') == 'bangla') {!! Str::limit($blog->post_details_bn, 200 )  !!} @else {!! Str::limit($blog->post_details_en, 200 )  !!} @endif</p>
+	<p>@if(session()->get('language') == 'hindi') {!! Str::limit($blog->post_details_hin, 200 )  !!} @else {!! Str::limit($blog->post_details_en, 200 )  !!} @endif</p>
 
 
 	<a href="{{ route('post.details',$blog->id) }}" class="btn btn-upper btn-primary read-more">read more</a>
@@ -85,7 +85,7 @@ Blog Page
 
 @foreach($blogcategory as $category)
 	    	 <ul class="list-group">
-  <a href="{{ url('blog/category/post/'.$category->id) }}"><li class="list-group-item">@if(session()->get('language') == 'hindi') {{ $category->blog_category_name_bn }} @else {{ $category->blog_category_name_en }} @endif</li></a>
+  <a href="{{ url('blog/category/post/'.$category->id) }}"><li class="list-group-item">@if(session()->get('language') == 'hindi') {{ $category->blog_category_name_hin }} @else {{ $category->blog_category_name_en }} @endif</li></a>
    
    </ul>
 @endforeach
