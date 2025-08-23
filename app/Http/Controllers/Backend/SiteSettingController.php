@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\SiteSettings;
+use App\Models\Seo;
 
 class SiteSettingController extends Controller
 {
