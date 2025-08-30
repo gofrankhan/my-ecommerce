@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 use App\Models\Blog\BlogPostCategory;
 use App\Models\Blog\BlogPost;
 use Carbon\Carbon;
@@ -98,10 +101,7 @@ class BlogController extends Controller
     }
 
   public function BlogPostStore(Request $request){
-
-    dump($request->all());
-    info("Requst data: ", $request->all());
-    logger($request->all());
+    
   	$request->validate([
     		'post_title_en' => 'required',
     		'post_title_bn' => 'required',
@@ -113,10 +113,12 @@ class BlogController extends Controller
 
     	$image = $request->file('post_image');
     	$name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-    	// Image::make($image)->resize(780,433)->save('upload/post/'.$name_gen);
+      $manager = new ImageManager(new Driver());
+			$image = $manager->read($image->getRealPath())
+				->resize(780, 433)
+				->save('upload/post/'.$name_gen);
     	$save_url = 'upload/post/'.$name_gen;
       $destinationPath = 'upload/post';
-      $image->move($destinationPath, $name_gen);
 
       BlogPost::insert([
         'category_id' => $request->category_id,

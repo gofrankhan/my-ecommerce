@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 class AdminProfileController extends Controller
 {
 	//

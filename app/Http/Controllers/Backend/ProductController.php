@@ -9,6 +9,9 @@ use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use App\Models\Brand;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 use App\Models\Product;
 use App\Models\MultiImg;
 use Carbon\Carbon;
@@ -38,10 +41,13 @@ class ProductController extends Controller
     }
     $image = $request->file('product_thambnail');
     $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-    // Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
+
+    $manager = new ImageManager(new Driver());
+    $image = $manager->read($image->getRealPath())
+        ->resize(917, 1000)
+        ->save('upload/products/thambnail/'.$name_gen);
     $save_url = 'upload/products/thambnail/' . $name_gen;
     $destinationPath = 'upload/products/thambnail';
-    $image->move($destinationPath, $name_gen);
     $product_id = Product::insertGetId([
       'brand_id' => $request->brand_id,
       'category_id' => $request->category_id,
@@ -85,11 +91,12 @@ class ProductController extends Controller
     $images = $request->file('multi_img');
     foreach ($images as $img) {
       $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
-      //Image::make($img)->resize(917,1000)->save('upload/products/multi-image/'.$make_name);
+      $manager = new ImageManager(new Driver());
+      $img = $manager->read($img->getRealPath())
+          ->resize(917, 1000)
+          ->save('upload/products/multi-image/' . $make_name);
       $uploadPath = 'upload/products/multi-image/' . $make_name;
       $destinationPath = 'upload/products/multi-image';
-      $img->move($destinationPath, $make_name);
-      log("step 6");
       MultiImg::insert([
 
         'product_id' => $product_id,
@@ -206,10 +213,12 @@ class ProductController extends Controller
       unlink($imgDel->photo_name);
 
       $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
-      //Image::make($img)->resize(917,1000)->save('upload/products/multi-image/'.$make_name);
+      $manager = new ImageManager(new Driver());
+      $img = $manager->read($img->getRealPath())
+          ->resize(917, 1000)
+          ->save('upload/products/multi-image/' . $make_name);
       $uploadPath = 'upload/products/multi-image/' . $make_name;
       $destinationPath = 'upload/products/multi-image';
-      $img->move($destinationPath, $make_name);
 
       MultiImg::where('id', $id)->update([
         'photo_name' => $uploadPath,
@@ -234,10 +243,13 @@ class ProductController extends Controller
 
     $image = $request->file('product_thambnail');
     $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-    //Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
+    $manager = new ImageManager(new Driver());
+    $image = $manager->read($image->getRealPath())
+        ->resize(917, 1000)
+        ->save('upload/products/thambnail/' . $name_gen);
+
     $save_url = 'upload/products/thambnail/' . $name_gen;
     $destinationPath = 'upload/products/thambnail';
-    $image->move($destinationPath, $name_gen);
 
     Product::findOrFail($pro_id)->update([
       'product_thambnail' => $save_url,

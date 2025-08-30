@@ -31,10 +31,23 @@ use App\Http\Controllers\User\CashController;
 use App\Http\Controllers\User\AllUserController;
 use App\Http\Controllers\User\ReviewController;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\RoleMiddleware;
+
+Route::get('/test-image', function () {
+    $manager = new ImageManager(new Driver());
+
+    $image = $manager->read(public_path('upload/blog/jewelary.png'))
+        ->resize(430, 327)
+        ->save(public_path('upload/blog/test.png'));
+
+    return 'Image saved!';
+});
 
 //Admin All route
 Route::middleware([RoleMiddleware::class], 'auth', 'verified')->group(function () {
@@ -346,3 +359,5 @@ Route::post('search-product', [IndexController::class, 'SearchProduct']);
 Route::get('/shop', [ShopController::class, 'ShopPage'])->name('shop.page');
 Route::post('/shop/filter', [ShopController::class, 'ShopFilter'])->name('shop.filter');
 require __DIR__ . '/auth.php';
+
+

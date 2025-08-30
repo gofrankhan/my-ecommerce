@@ -182,8 +182,6 @@ class CartController extends Controller
             return redirect()->to('/')->with($notification);
 
             }
-
-            
             }else{
 
                 $notification = array(

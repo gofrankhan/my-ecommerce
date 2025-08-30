@@ -15,6 +15,9 @@ use App\Models\Brand;
 use App\Models\MultiImg;
 use App\Models\Blog\BlogPost;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller

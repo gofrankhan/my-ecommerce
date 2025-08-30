@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 use App\Models\SiteSettings;
 use App\Models\Seo;
 
@@ -26,10 +29,12 @@ class SiteSettingController extends Controller
     	 
     	$image = $request->file('logo');
     	$name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-    	//Image::make($image)->resize(139,36)->save('upload/logo/'.$name_gen);
+		$manager = new ImageManager(new Driver());
+			$image = $manager->read($image->getRealPath())
+				->resize(139, 36)
+				->save('upload/logo/'.$name_gen);
         $save_url = 'upload/logo/'.$name_gen;
         $destinationPath = 'upload/logo';
-        $image->move($destinationPath, $name_gen);
 
 	SiteSettings::findOrFail($setting_id)->update([
 		'phone_one' => $request->phone_one,

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 use App\Models\Slider;
 use Carbon\Carbon;
 
@@ -29,10 +32,12 @@ class SliderController extends Controller
 
 		$image = $request->file('slider_img');
 		$name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-		//Image::make($image)->resize(870,370)->save('upload/slider/'.$name_gen);
+		$manager = new ImageManager(new Driver());
+		$image = $manager->read($image->getRealPath())
+			->resize(870, 370)
+			->save('upload/slider/'.$name_gen);
 		$save_url = 'upload/slider/' . $name_gen;
 		$destinationPath =  'upload/slider/';
-		$image->move($destinationPath, $name_gen);
 
 		Slider::insert([
 			'title' => $request->title,
@@ -66,10 +71,12 @@ class SliderController extends Controller
 			unlink($old_img);
 			$image = $request->file('slider_img');
 			$name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-			//Image::make($image)->resize(870,370)->save('upload/slider/'.$name_gen);
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($image->getRealPath())
+				->resize(870, 370)
+				->save('upload/slider/'.$name_gen);
 			$save_url = 'upload/slider/' . $name_gen;
 			$destinationPath =  'upload/slider/';
-			$image->move($destinationPath, $name_gen);
 
 			Slider::findOrFail($slider_id)->update([
 				'title' => $request->title,

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver; // or Imagick if you prefer
+
 class BrandController extends Controller
 {
 	public function BrandView()
@@ -27,7 +30,10 @@ class BrandController extends Controller
 
 		$image = $request->file('brand_image');
 		$name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-		$image = $request->file('brand_image')->move('upload/brand/', $name_gen);
+		$manager = new ImageManager(new Driver());
+		$image = $manager->read($image->getRealPath())
+			->resize(300, 300)
+			->save('upload/brand/' . $name_gen);
 		$save_url = 'upload/brand/' . $name_gen;
 
 		Brand::insert([
@@ -64,7 +70,10 @@ class BrandController extends Controller
 			unlink($old_img);
 			$image = $request->file('brand_image');
 			$name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-			$image = $request->file('brand_image')->move('upload/brand/', $name_gen);
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($image->getRealPath())
+				->resize(300, 300)
+				->save('upload/brand/' . $name_gen);
 			$save_url = 'upload/brand/' . $name_gen;
 
 			Brand::findOrFail($brand_id)->update([
